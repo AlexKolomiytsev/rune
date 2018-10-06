@@ -23,7 +23,7 @@
   "homepage": "https://github.com/AlexKolomiytsev/rune#readme",
   "husky": {
     "hooks": {
-      "pre-commit": "yarn tscheck"
+      "pre-push": "yarn tscheck"
     }
   },
   "dependencies": {

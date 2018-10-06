@@ -9,11 +9,9 @@ class App {
   }
 
   private mountRoutes(): void {
-
-    const greeting = (name: string) => `Hello, ${name}`;
-
     const router = express.Router();
     router.get('/', (req, res) => {
+      console.log(req);
       res.json({
         message: 'Hello World!',
       });
