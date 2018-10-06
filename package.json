@@ -4,7 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc",
+    "dev": "tsc --watch & nodemon dist",
+    "test": "tsc && mocha dist/**/*.spec.ts",
+    "tslint": "tslint -c tslint.json --project tsconfig.json",
+    "tscheck": "tsc --project tsconfig.json --noEmit",
+    "tsc": "tsc"
   },
   "repository": {
     "type": "git",
@@ -15,5 +20,26 @@
   "bugs": {
     "url": "https://github.com/AlexKolomiytsev/rune/issues"
   },
-  "homepage": "https://github.com/AlexKolomiytsev/rune#readme"
+  "homepage": "https://github.com/AlexKolomiytsev/rune#readme",
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn tscheck"
+    }
+  },
+  "dependencies": {
+    "@types/node": "^10.11.4",
+    "express": "^4.16.3",
+    "nodemon": "^1.18.4"
+  },
+  "devDependencies": {
+    "@types/mocha": "^5.2.5",
+    "@types/node": "^10.11.4",
+    "husky": "^1.1.1",
+    "mocha": "^5.2.0",
+    "tsc": "^1.20150623.0",
+    "tslint": "^5.11.0",
+    "tslint-config-airbnb": "^5.11.0",
+    "typescript": "^3.1.1",
+    "typescript-eslint-parser": "^19.0.2"
+  }
 }
