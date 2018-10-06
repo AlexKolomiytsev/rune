@@ -7,7 +7,7 @@
     "build": "tsc",
     "dev": "tsc --watch & nodemon dist",
     "test": "tsc && mocha dist/**/*.spec.ts",
-    "tslint": "tslint -c tslint.json --project tsconfig.json",
+    "tslint": "tslint -c tslint.json --project tsconfig.json -t stylish",
     "tscheck": "tsc --project tsconfig.json --noEmit",
     "tsc": "tsc"
   },
@@ -23,7 +23,7 @@
   "homepage": "https://github.com/AlexKolomiytsev/rune#readme",
   "husky": {
     "hooks": {
-      "pre-push": "yarn tscheck"
+      "pre-push": "yarn tscheck & yarn tslint"
     }
   },
   "dependencies": {
