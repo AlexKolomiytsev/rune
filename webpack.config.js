@@ -1,24 +1,25 @@
-var fs = require("fs");
+const fs = require('fs');
 const { TsConfigPathsPlugin } = require('awesome-typescript-loader');
+const TSLintPlugin = require('tslint-webpack-plugin');
 
 var nodeModules = {};
-fs.readdirSync("node_modules")
+fs.readdirSync('node_modules')
   .filter(function(x) {
-    return [".bin"].indexOf(x) === -1;
+    return ['.bin'].indexOf(x) === -1;
   })
   .forEach(function(mod) {
-    nodeModules[mod] = "commonjs " + mod;
+    nodeModules[mod] = 'commonjs ' + mod;
   });
 
 module.exports = {
-  entry: "./src/index.ts",
+  entry: './src/index.ts',
   output: {
-    path: __dirname + "/dist",
-    filename: "index.js",
+    path: __dirname + '/dist',
+    filename: 'index.js',
   },
   resolve: {
     // Add '.ts' and '.tsx' as a resolvable extension.
-    extensions: [".ts"],
+    extensions: ['.ts'],
     plugins: [
       new TsConfigPathsPlugin()
     ]
@@ -44,7 +45,14 @@ module.exports = {
       }
     ],
   },
+  plugins: [
+    new TSLintPlugin({
+      files: ['./src/**/*.ts'],
+      project: 'tsconfig.json',
+      config: 'tslint.json',
+      format: 'stylish',
+    })
+  ],
   target: 'node',
-  mode: 'development',
   externals: nodeModules,
 };

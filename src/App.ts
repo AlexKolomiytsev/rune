@@ -34,7 +34,7 @@ class App {
 
     this.app.listen(this.port, this.host, () => {
       console.log(colors.bgMagenta.black(
-        `\nApplication is running at ${this.host}:${this.port} in ${this.mode} mode\n`
+        `\nApplication is running at ${this.host}:${this.port} in ${this.mode} mode\n`,
       ));
     });
   }

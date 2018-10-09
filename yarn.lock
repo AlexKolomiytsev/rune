@@ -4072,6 +4072,12 @@ tslint-microsoft-contrib@~5.2.0:
   dependencies:
     tsutils "^2.27.2 <2.29.0"
 
+tslint-webpack-plugin@^1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/tslint-webpack-plugin/-/tslint-webpack-plugin-1.2.2.tgz#364369d2842d5fc8115815e9fe92f0d4dc39b9b7"
+  dependencies:
+    chalk "^2.1.0"
+
 tslint@^5.11.0:
   version "5.11.0"
   resolved "https://registry.yarnpkg.com/tslint/-/tslint-5.11.0.tgz#98f30c02eae3cde7006201e4c33cb08b48581eed"
