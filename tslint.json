@@ -7,6 +7,9 @@
   "jsRules": {},
   "rules": {
     "no-boolean-literal-compare": true,
+    "import-name": false,
+    "object-literal-sort-keys": false,
+    "quotemark": [true, "single"],
     "no-console": {
       "severity": "warning"
     }
