@@ -32,11 +32,12 @@ class App {
     this.configure();
     this.mountRoutes();
 
-
     this.app.listen(this.port, this.host, () => {
-      console.log(colors.bgMagenta.black(
-        `\nApplication is running at ${this.host}:${this.port} in ${this.mode} mode\n`,
-      ));
+      console.log(
+        colors.bgMagenta.black(
+          `\nApplication is running at ${this.host}:${this.port} in ${this.mode} mode\n`,
+        ),
+      );
     });
   }
 
@@ -46,9 +47,7 @@ class App {
     this.app.use(bodyParser.json());
 
     // configure our app to handle CORS requests
-    this.app.use(
-      cors(),
-    );
+    this.app.use(cors());
 
     // log all requests to the console
     this.app.use(morgan('dev'));
