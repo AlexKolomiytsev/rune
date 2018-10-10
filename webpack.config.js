@@ -12,17 +12,18 @@ fs.readdirSync('node_modules')
   });
 
 module.exports = {
-  entry: './src/index.ts',
+  entry: {
+    index: './src/index.ts',
+    tests: './src/tests/index.ts',
+  },
   output: {
     path: __dirname + '/dist',
-    filename: 'index.js',
+    filename: '[name].js',
   },
   resolve: {
     // Add '.ts' and '.tsx' as a resolvable extension.
     extensions: ['.ts'],
-    plugins: [
-      new TsConfigPathsPlugin()
-    ]
+    plugins: [new TsConfigPathsPlugin()],
   },
   module: {
     rules: [
@@ -32,7 +33,7 @@ module.exports = {
       {
         enforce: 'pre',
         test: /\.js$/,
-        use: 'source-map-loader'
+        use: 'source-map-loader',
       },
 
       /****************
@@ -40,9 +41,9 @@ module.exports = {
        *****************/
       {
         test: /\.ts$/,
-        exclude: [ /node_modules/ ],
-        use: 'awesome-typescript-loader'
-      }
+        exclude: [/node_modules/],
+        use: 'awesome-typescript-loader',
+      },
     ],
   },
   plugins: [
@@ -51,8 +52,9 @@ module.exports = {
       project: 'tsconfig.json',
       config: 'tslint.json',
       format: 'stylish',
-    })
+    }),
   ],
   target: 'node',
   externals: nodeModules,
+  stats: 'errors-only',
 };

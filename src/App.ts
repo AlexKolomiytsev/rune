@@ -11,6 +11,7 @@ import routes from '@app/routes';
 
 class App {
   public app: any;
+  public server: any;
   private http: any;
   // @ts-ignore
   private socket;
@@ -32,12 +33,16 @@ class App {
     this.configure();
     this.mountRoutes();
 
-    this.app.listen(this.port, this.host, () => {
-      console.log(
-        colors.bgMagenta.black(
-          `\nApplication is running at ${this.host}:${this.port} in ${this.mode} mode\n`,
-        ),
-      );
+    // TODO: promisify callback instead of returning a promise
+    return new Promise(resolve => {
+      this.server = this.app.listen(this.port, this.host, () => {
+        console.log(
+          colors.bgMagenta.black(
+            `\nApplication is running at ${this.host}:${this.port} in ${this.mode} mode\n`,
+          ),
+        );
+        resolve();
+      });
     });
   }
 
