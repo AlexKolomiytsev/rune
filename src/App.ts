@@ -32,6 +32,7 @@ class App {
     this.configure();
     this.mountRoutes();
 
+
     this.app.listen(this.port, this.host, () => {
       console.log(colors.bgMagenta.black(
         `\nApplication is running at ${this.host}:${this.port} in ${this.mode} mode\n`,

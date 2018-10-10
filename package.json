@@ -24,8 +24,15 @@
   "homepage": "https://github.com/AlexKolomiytsev/rune#readme",
   "husky": {
     "hooks": {
-      "pre-push": "yarn tscheck & yarn tslint"
+      "pre-push": "yarn tscheck & yarn tslint",
+      "pre-commit": "lint-staged"
     }
+  },
+  "lint-staged": {
+    "*.{js,jsx,css,scss,md}": [
+      "prettier --write",
+      "git add"
+    ]
   },
   "dependencies": {
     "@types/node": "^10.11.4",
@@ -53,7 +60,9 @@
     "awesome-typescript-loader": "^5.2.1",
     "colors": "^1.3.2",
     "husky": "^1.1.1",
+    "lint-staged": "^7.3.0",
     "mocha": "^5.2.0",
+    "prettier": "1.14.3",
     "ts-loader": "^5.2.1",
     "ts-node": "^7.0.1",
     "tsc": "^1.20150623.0",
