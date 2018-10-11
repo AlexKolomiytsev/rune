@@ -1,5 +1,5 @@
 import * as express from 'express';
-import boilerplate from '../api/boilerplate';
+import boilerplate from '@app/api/boilerplate';
 
 const router = express.Router();
 

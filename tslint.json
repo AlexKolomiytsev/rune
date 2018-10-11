@@ -9,6 +9,7 @@
     "no-boolean-literal-compare": true,
     "import-name": false,
     "object-literal-sort-keys": false,
+    "ordered-imports": false,
     "quotemark": [true, "single"],
     "no-console": {
       "severity": "warning"
