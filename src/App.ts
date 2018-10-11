@@ -34,6 +34,7 @@ class App {
     this.mountRoutes();
 
     // TODO: promisify callback instead of returning a promise
+    // tslint:disable-next-line ter-arrow-parens
     return new Promise(resolve => {
       this.server = this.app.listen(this.port, this.host, () => {
         console.log(
