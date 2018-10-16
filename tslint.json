@@ -11,6 +11,7 @@
     "object-literal-sort-keys": false,
     "ordered-imports": false,
     "quotemark": [true, "single"],
+    "object-shorthand-properties-first": false,
     "no-console": {
       "severity": "warning"
     }

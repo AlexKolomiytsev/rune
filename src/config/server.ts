@@ -1,5 +1,5 @@
 import * as dotenv from 'dotenv';
-dotenv.load();
+dotenv.config({ path: `./.env.${process.env.NODE_ENV}` });
 
 export default {
   host: process.env.APP_HOST,
