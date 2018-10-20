@@ -24,7 +24,7 @@
   "homepage": "https://github.com/AlexKolomiytsev/rune#readme",
   "husky": {
     "hooks": {
-      "pre-push": "yarn tscheck & yarn tslint & yarn test",
+      "pre-push": "yarn tscheck & yarn tslint",
       "pre-commit": "lint-staged"
     }
   },
