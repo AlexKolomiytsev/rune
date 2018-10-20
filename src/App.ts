@@ -8,21 +8,26 @@ import * as socketIo from 'socket.io';
 
 import config from '@app/config';
 import routes from '@app/routes';
+import Db from '@app/database';
+
+const { MONGO_DB } = config.get('/constants/DB_ADAPTERS');
 
 class App {
   public app: any;
   public server: any;
   private http: any;
   // @ts-ignore
-  private socket;
+  private socket: any;
   private host: string;
   private port: number;
   private mode: string;
+  private apiPrefix: string;
 
   constructor() {
     this.host = config.get('/server/host');
     this.port = config.get('/server/port');
     this.mode = config.get('/node/mode');
+    this.apiPrefix = config.get('/api/prefix');
 
     this.app = express();
     this.http = new http.Server(this.app);
@@ -31,12 +36,14 @@ class App {
 
   public start() {
     this.configure();
-    this.mountRoutes();
+    this.connectDb();
 
+    this.mountRoutes();
     // TODO: promisify callback instead of returning a promise
     // tslint:disable-next-line ter-arrow-parens
     return new Promise(resolve => {
       this.server = this.app.listen(this.port, this.host, () => {
+        // tslint:disable-next-line no-console
         console.log(
           colors.bgMagenta.black(
             `\nApplication is running at ${this.host}:${this.port} in ${this.mode} mode\n`,
@@ -48,19 +55,19 @@ class App {
   }
 
   private configure() {
-    // use body-parser so we can grab information from POST requests
     this.app.use(bodyParser.urlencoded({ extended: true }));
     this.app.use(bodyParser.json());
-
-    // configure our app to handle CORS requests
     this.app.use(cors());
-
-    // log all requests to the console
     this.app.use(morgan('dev'));
   }
 
+  private connectDb() {
+    const mongo = new Db(MONGO_DB);
+    mongo.connect();
+  }
+
   private mountRoutes(): void {
-    this.app.use(routes);
+    this.app.use(`/${this.apiPrefix}`, routes);
   }
 }
 

@@ -1,5 +1,5 @@
 import * as express from 'express';
-import boilerplateGetHandler from './handlers/boilerplateGet.handler';
+import { boilerplateGetHandler } from '@app/api/boilerplate/handlers';
 
 const router = express.Router();
 
