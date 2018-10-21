@@ -1,7 +1,7 @@
 {
   "files": [
     "src/index.ts",
-    "src/types/*"
+    "src/types/**/*.ts"
   ],
   "include": [
     "src/**/*.ts"
