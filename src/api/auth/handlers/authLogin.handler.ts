@@ -13,6 +13,7 @@ class AuthLoginHandler {
       const user = await User.findOne({ email });
 
       if (!user) throw boom.badRequest('User with such email does not exist');
+      if (!user.isVerified) throw boom.forbidden('You have not yet verified your account.');
 
       const isPasswordsMatched = await user.comparePasswords(password);
 
