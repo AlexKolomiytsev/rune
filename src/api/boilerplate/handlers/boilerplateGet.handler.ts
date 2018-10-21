@@ -2,12 +2,11 @@ import { Request, Response } from 'express';
 
 class BoilerplateGetHandler {
   public route(req: Request, res: Response) {
-    const { method, url } = req;
-    // tslint:disable-next-line no-console
-    console.log(`${method} ${url}`);
+    const { user } = req;
 
     return res.json({
       boilerplate: 'boilerplate UPDATED 4',
+      user,
     });
   }
 }

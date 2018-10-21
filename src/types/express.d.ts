@@ -5,4 +5,8 @@ declare namespace Express {
     reply: any;
     message: (message: string | string[]) => Response;
   }
+  // tslint:disable-next-line interface-name
+  export interface Request {
+    user: any;
+  }
 }

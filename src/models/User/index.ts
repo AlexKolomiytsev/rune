@@ -1,22 +1,22 @@
-import { prop, Typegoose, pre } from 'typegoose';
+import { prop, Typegoose, pre, instanceMethod } from 'typegoose';
 import * as bcrypt from 'bcrypt';
 
 const SALT_ROUND = 10;
 
-@pre<User>('save', function(next) {
+@pre<User>('save', async function(next) {
   if (!this.isModified('password')) {
     return next();
   }
 
-  bcrypt
-    .hash(this.password, SALT_ROUND)
-    .then(hash => {
-      this.password = hash;
-      next();
-    })
-    .catch(next);
+  try {
+    const hash = await bcrypt.hash(this.password, SALT_ROUND);
+    this.password = hash;
+    next();
+  } catch (e) {
+    next(e);
+  }
 })
-class User extends Typegoose {
+export class User extends Typegoose {
   @prop({ required: true, unique: true })
   public email: string;
   @prop({ required: true })
@@ -29,6 +29,14 @@ class User extends Typegoose {
   public isVerified: boolean;
   @prop()
   public verificationToken: string;
+  @instanceMethod
+  public async comparePasswords(password: string) {
+    try {
+      return await bcrypt.compare(password, this.password);
+    } catch (e) {
+      return null;
+    }
+  }
 }
 
 export default new User().getModelForClass(User, {

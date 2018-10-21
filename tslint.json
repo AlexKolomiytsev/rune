@@ -13,6 +13,7 @@
     "quotemark": [true, "single"],
     "object-shorthand-properties-first": false,
     "ter-arrow-parens": false,
+    "space-before-function-paren": false,
     "no-console": {
       "severity": "warning"
     }
