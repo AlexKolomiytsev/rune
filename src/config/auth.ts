@@ -3,12 +3,16 @@ dotenv.config({ path: `./.env.${process.env.NODE_ENV}` });
 
 const authConfig = {
   development: {
-    jwtSecret: 'someSecret',
-    jwtExpiresIn: '1h',
+    accessTokenSecret: 'someSecret',
+    accessTokenExpiresIn: '1h',
+    verificationTokenSecret: 'someVerificationTokenSecret',
+    verificationTokenExpiresIn: '7d',
   },
   production: {
-    jwtSecret: process.env.AUTH_JWT_SECRET,
-    jwtExpiresIn: '15m',
+    accessTokenSecret: process.env.AUTH_ACCESS_TOKEN_SECRET,
+    accessTokenExpiresIn: '15m',
+    verificationTokenSecret: process.env.AUTH_VERIFICATION_TOKEN_SECRET,
+    verificationTokenExpiresIn: '7d',
   },
 };
 

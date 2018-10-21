@@ -12,6 +12,7 @@
     "ordered-imports": false,
     "quotemark": [true, "single"],
     "object-shorthand-properties-first": false,
+    "ter-arrow-parens": false,
     "no-console": {
       "severity": "warning"
     }

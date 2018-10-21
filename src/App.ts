@@ -9,11 +9,15 @@ import * as socketIo from 'socket.io';
 import config from '@app/config';
 import routes from '@app/routes';
 import Db from '@app/database';
+import responder from '@app/responder';
+
+// @ts-ignore
+express.response = responder;
 
 const { MONGO_DB } = config.get('/constants/DB_ADAPTERS');
 
 class App {
-  public app: any;
+  public app: express.Application;
   public server: any;
   private http: any;
   // @ts-ignore
@@ -41,15 +45,19 @@ class App {
     this.mountRoutes();
     // TODO: promisify callback instead of returning a promise
     // tslint:disable-next-line ter-arrow-parens
-    return new Promise(resolve => {
-      this.server = this.app.listen(this.port, this.host, () => {
-        // tslint:disable-next-line no-console
-        console.log(
-          colors.bgMagenta.black(
-            `\nApplication is running at ${this.host}:${this.port} in ${this.mode} mode\n`,
-          ),
-        );
-        resolve();
+    return new Promise((resolve, reject) => {
+      this.server = this.app.listen(this.port, this.host, (err: Error) => {
+        if (!err) {
+          // tslint:disable-next-line no-console
+          console.log(
+            colors.bgMagenta.black(
+              `\nApplication is running at ${this.host}:${this.port} in ${this.mode} mode\n`,
+            ),
+          );
+          resolve();
+        } else {
+          reject(err);
+        }
       });
     });
   }
