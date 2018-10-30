@@ -19,6 +19,7 @@ export class Mongo {
 
   constructor() {
     this.mongoose = mongoose;
+    this.mongoose.set('useCreateIndex', true);
     this.mongoose.Promise = bluebird;
   }
 

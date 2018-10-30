@@ -1,5 +1,6 @@
-import { prop, Typegoose, pre, instanceMethod } from 'typegoose';
 import * as bcrypt from 'bcrypt';
+import { Typegoose, prop, pre, instanceMethod } from 'typegoose';
+import { isEmail } from 'validator';
 
 const SALT_ROUND = 10;
 
@@ -9,15 +10,18 @@ const SALT_ROUND = 10;
   }
 
   try {
-    const hash = await bcrypt.hash(this.password, SALT_ROUND);
-    this.password = hash;
+    this.password = await bcrypt.hash(this.password, SALT_ROUND);
     next();
   } catch (e) {
     next(e);
   }
 })
 export class User extends Typegoose {
-  @prop({ required: true, unique: true })
+  @prop({
+    required: true,
+    unique: true,
+    validate: { validator: isEmail, message: '{VALUE} is not a valid email' },
+  })
   public email: string;
   @prop({ required: true })
   public firstName: string;
