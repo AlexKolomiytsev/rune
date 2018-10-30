@@ -7,6 +7,7 @@ import auth from './auth';
 import node from './node';
 import server from './server';
 import db, { DB_ADAPTERS } from './db';
+import mailgun from './mailgun';
 
 dotenv.config({ path: `./.env.${process.env.NODE_ENV}` });
 
@@ -21,6 +22,7 @@ const config = {
   node,
   server,
   db,
+  mailgun,
   constants: {
     ...constants,
     DB_ADAPTERS,
