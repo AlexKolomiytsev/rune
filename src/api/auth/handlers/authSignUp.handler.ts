@@ -22,11 +22,18 @@ class AuthSignUpHandler {
 
       // TODO: dispatch email notification by Bull job scheduler
       // TODO: create templates
-      await emailService.send({
-        to: plainUser.email,
-        subject: '[Action required] Verify your email address to sign up in the Node Rune system.',
-        text: `Just use for now this code to verify your email: ${plainUser.verificationToken}`,
-      });
+      await emailService.send(
+        {
+          filename: 'authVerifyEmail.pug',
+          to: plainUser.email,
+          subject: 'Verify your email address to sign up in the Node Rune system.',
+          isActionRequired: true,
+        },
+        {
+          headerTitle: 'Please verify your Rune account',
+          activationLink: plainUser.verificationToken,
+        },
+      );
 
       delete plainUser.verificationToken;
       delete plainUser.password;

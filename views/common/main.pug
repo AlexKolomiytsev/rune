@@ -1,0 +1,15 @@
+html
+    head
+        title Node Rune Server
+        style
+            include ../styles/index.css
+    body
+        header.common#header
+            block header
+                span #{headerTitle || 'Hi'}
+        div.common#content
+            block content
+                p The Main Content
+        footer.common#footer
+            block footer
+                span Node Rune Server

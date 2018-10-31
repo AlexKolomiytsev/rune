@@ -1,0 +1,24 @@
+.common {
+  color: #2c2c2c;
+  text-align: left;
+  padding: 10px 0;
+  font-size: 13px;
+}
+
+#header {
+  border-bottom: 2px solid #2c2c2c;
+  font-size: 14px;
+}
+
+#content {
+}
+
+#footer {
+}
+
+.title {
+  font-size: 13px;
+}
+
+.link {
+}

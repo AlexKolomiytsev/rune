@@ -14,6 +14,7 @@
     "object-shorthand-properties-first": false,
     "ter-arrow-parens": false,
     "space-before-function-paren": false,
+    "align": false,
     "no-console": {
       "severity": "warning"
     }
