@@ -7,7 +7,8 @@ import * as morgan from 'morgan';
 import * as socketIo from 'socket.io';
 
 import config from '@app/config';
-import routes from '@app/routes';
+import api from '@app/api/routes';
+import views from '@app/views/routes';
 import Db from '@app/database';
 import responder from '@app/responder';
 
@@ -26,12 +27,14 @@ class App {
   private port: number;
   private mode: string;
   private apiPrefix: string;
+  private viewsPrefix: string;
 
   constructor() {
     this.host = config.get('/server/host');
     this.port = config.get('/server/port');
     this.mode = config.get('/node/mode');
     this.apiPrefix = config.get('/api/prefix');
+    this.viewsPrefix = config.get('/views/prefix');
 
     this.app = express();
     this.http = new http.Server(this.app);
@@ -67,6 +70,8 @@ class App {
     this.app.use(bodyParser.json());
     this.app.use(cors());
     this.app.use(morgan('dev'));
+    this.app.set('views', './views/pages');
+    this.app.set('view engine', 'pug');
   }
 
   private connectDb() {
@@ -75,7 +80,8 @@ class App {
   }
 
   private mountRoutes(): void {
-    this.app.use(`/${this.apiPrefix}`, routes);
+    this.app.use(`/${this.apiPrefix}`, api);
+    this.app.use(`/${this.viewsPrefix}`, views);
   }
 }
 

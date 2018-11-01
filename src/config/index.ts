@@ -8,6 +8,7 @@ import node from './node';
 import server from './server';
 import db, { DB_ADAPTERS } from './db';
 import mailgun from './mailgun';
+import views from './views';
 
 dotenv.config({ path: `./.env.${process.env.NODE_ENV}` });
 
@@ -23,6 +24,7 @@ const config = {
   server,
   db,
   mailgun,
+  views,
   constants: {
     ...constants,
     DB_ADAPTERS,
