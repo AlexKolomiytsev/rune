@@ -28,7 +28,7 @@ jobs:
               ARCHIVE_TAG=${CIRCLE_TAG};
             fi
             yarn build
-            tar -czf ${ARCHIVE_TAG}.tar.gz build/
+            tar -czf ${ARCHIVE_TAG}.tar.gz dist/
       - save_cache:
           key: yarn-packages-{{ .Branch }}-{{ checksum "package.json" }}
           paths:
