@@ -19,6 +19,16 @@ jobs:
       - run:
           name: Install packages
           command: yarn install
+      - run
+          name: Build
+          command: |
+            if [ -z "${CIRCLE_TAG}" ]; then
+              ARCHIVE_TAG=sha-${CIRCLE_SHA1::7};
+            else
+              ARCHIVE_TAG=${CIRCLE_TAG};
+            fi
+            yarn build
+            tar -czf ${ARCHIVE_TAG}.tar.gz build/
       - save_cache:
           key: yarn-packages-{{ .Branch }}-{{ checksum "package.json" }}
           paths:
@@ -29,4 +39,3 @@ workflows:
   build-and-deploy:
     jobs:
       - build
-
