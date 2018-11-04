@@ -24,7 +24,7 @@ jobs:
 
       - save_cache:
           key: yarn-cache-{{ .Branch }}-{{ checksum "package.json" }}
-            paths:
+          paths:
             - ~/.cache/yarn
             - node_modules
 
