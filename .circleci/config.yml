@@ -5,7 +5,7 @@ jobs:
     working_directory: ~/repo
     docker:
     - image: circleci/node:10
-
+      user: root
     steps:
       - run:
           name: Install yarn
@@ -17,7 +17,6 @@ jobs:
           - yarn-cache-{{ .Branch }}-{{ checksum "package.json" }}
           - yarn-cache-{{ .Branch }}
           - yarn-cache
-
       - run:
           name: Install packages
           command: yarn install
