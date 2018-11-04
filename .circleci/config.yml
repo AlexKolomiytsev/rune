@@ -20,15 +20,11 @@ jobs:
       - run:
           name: Install packages
           command: yarn install
-
       - save_cache:
           key: yarn-cache-{{ .Branch }}-{{ checksum "package.json" }}
           paths:
             - ~/.cache/yarn
             - node_modules
-
-      # run tests!
-      - run: yarn test
 
 workflows:
   version: 2
