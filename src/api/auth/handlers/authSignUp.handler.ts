@@ -5,7 +5,17 @@ import { User } from '@app/models';
 import config from '@app/config';
 import { emailService } from '@app/services';
 
+const { host, port } = config.get('/server');
+const { prefix } = config.get('/views');
+const verificationTokenExpiresIn = config.get('/auth/verificationTokenExpiresIn');
+
+const viewsRoot = `http://${host}:${port}/${prefix}/auth/verify-email`;
+
 class AuthSignUpHandler {
+  constructor() {
+    this.route = this.route.bind(this);
+  }
+
   public async route(req: Request, res: Response) {
     const { firstName, lastName, email, password } = req.body;
     const user = { firstName, lastName, email };
@@ -14,7 +24,7 @@ class AuthSignUpHandler {
       const verificationToken = jsonwebtoken.sign(
         user,
         config.get('/auth/verificationTokenSecret'),
-        { expiresIn: config.get('/auth/verificationTokenExpiresIn') },
+        { expiresIn: verificationTokenExpiresIn },
       );
 
       const createdUser: any = await User.create({ ...user, password, verificationToken });
@@ -31,7 +41,7 @@ class AuthSignUpHandler {
         },
         {
           headerTitle: 'Please verify your Rune account',
-          activationLink: plainUser.verificationToken,
+          activationLink: `${viewsRoot}/${plainUser.verificationToken}`,
         },
       );
 

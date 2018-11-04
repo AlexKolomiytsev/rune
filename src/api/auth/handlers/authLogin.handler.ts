@@ -6,6 +6,10 @@ import { User } from '@app/models';
 import config from '@app/config';
 
 class AuthLoginHandler {
+  constructor() {
+    this.route = this.route.bind(this);
+  }
+
   public async route(req: Request, res: Response) {
     const { email, password } = req.body;
 

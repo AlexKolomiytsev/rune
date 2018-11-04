@@ -2,7 +2,7 @@ import { Transporter, SendMailOptions, createTransport } from 'nodemailer';
 import * as mailGunTransport from 'nodemailer-mailgun-transport';
 import { head } from 'lodash';
 import * as path from 'path';
-import * as pug from 'pug';
+import { renderFile, LocalsObject } from 'pug';
 
 import config from '@app/config';
 
@@ -40,9 +40,9 @@ class EmailService {
     this.viewsPath = path.resolve(__dirname, 'views', 'emails');
   }
 
-  public async send(options: IMailOptions, locals: { [key: string]: any } = {}) {
+  public async send(options: IMailOptions, locals: LocalsObject = {}) {
     try {
-      const html = await pug.renderFile(`.${this.viewsPath}/${options.filename}`, locals);
+      const html = await renderFile(`.${this.viewsPath}/${options.filename}`, locals);
 
       if (!html) throw new Error('Email template rendering error');
 
