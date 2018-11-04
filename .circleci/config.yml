@@ -11,20 +11,21 @@ jobs:
           name: Install yarn
           command: npm i -g yarn
       - checkout
-      # Download and cache dependencies
       - restore_cache:
+          name: Restore Yarn Package Cache
           keys:
-          - yarn-cache-{{ .Branch }}-{{ checksum "package.json" }}
-          - yarn-cache-{{ .Branch }}
-          - yarn-cache
+            - yarn-packages-{{ .Branch }}-{{ checksum "yarn.lock" }}
+            - yarn-cache
       - run:
           name: Install packages
           command: yarn install
       - save_cache:
-          key: yarn-cache-{{ .Branch }}-{{ checksum "package.json" }}
+          key: yarn-packages-{{ .Branch }}-{{ checksum "package.json" }}
           paths:
             - ~/.cache/yarn
             - node_modules
+  deploy:
+
 
 workflows:
   version: 2
