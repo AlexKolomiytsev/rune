@@ -33,9 +33,14 @@ jobs:
       - run:
           name: Build
           command: |
+            if [ -z "${CIRCLE_TAG}" ]; then
+              ARCHIVE_TAG=sha-${CIRCLE_SHA1::7};
+            else
+              ARCHIVE_TAG=${CIRCLE_TAG};
+            fi
             yarn build
-            tar -czf ${CIRCLE_TAG}.tar.gz dist/
-            aws s3 sync ${CIRCLE_TAG}.tar.gz s3://00noderune/${CIRCLE_TAG}.tar.gz --delete
+            tar -czf ${ARCHIVE_TAG}.tar.gz dist/
+            aws s3 sync ${ARCHIVE_TAG}.tar.gz s3://00noderune/${ARCHIVE_TAG}.tar.gz --delete
       - save_cache:
           key: yarn-packages-{{ .Branch }}-{{ checksum "package.json" }}
           paths:
