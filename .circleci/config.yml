@@ -20,6 +20,12 @@ jobs:
           name: Install packages
           command: yarn install
       - run:
+          name: TSLint check
+          command: yarn tslint
+      - run:
+          name: Types check
+          command: yarn tsc
+      - run:
           name: Build
           command: |
             yarn build
