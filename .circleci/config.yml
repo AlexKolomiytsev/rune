@@ -40,7 +40,7 @@ jobs:
             fi
             yarn build
             tar -czf ${ARCHIVE_TAG}.tar.gz dist/
-            aws s3 sync ${ARCHIVE_TAG}.tar.gz s3://00noderune/${ARCHIVE_TAG}.tar.gz --delete
+            aws s3 cp ${ARCHIVE_TAG}.tar.gz s3://00noderune/${ARCHIVE_TAG}.tar.gz
       - save_cache:
           key: yarn-packages-{{ .Branch }}-{{ checksum "package.json" }}
           paths:
