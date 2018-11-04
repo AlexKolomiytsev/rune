@@ -4,12 +4,17 @@ jobs:
   build:
     working_directory: ~/rune
     docker:
-    - image: circleci/node:10
-      user: root
+      - image: circleci/node:10
+        user: root
     steps:
       - run:
           name: Install yarn
           command: npm i -g yarn
+      - run:
+          name: Install pip and awscli
+          command: |
+            apt-get update && apt-get install -y python-pip python-dev
+            pip install awscli==1.14.38
       - checkout
       - restore_cache:
           name: Restore Yarn Package Cache
@@ -30,13 +35,23 @@ jobs:
           command: |
             yarn build
             tar -czf ${CIRCLE_TAG}.tar.gz dist/
+            aws s3 sync ${CIRCLE_TAG}.tar.gz s3://00noderune/${CIRCLE_TAG}.tar.gz --delete
       - save_cache:
           key: yarn-packages-{{ .Branch }}-{{ checksum "package.json" }}
           paths:
             - ~/.cache/yarn
             - node_modules
+  deploy:
+    working_directory: ~/rune
+    docker:
+      - image: circleci/node:10
+        user: root
+    steps
 workflows:
   version: 2
   build-and-deploy:
     jobs:
       - build
+      - deploy:
+          requires:
+            - build
