@@ -14,7 +14,8 @@ jobs:
           name: Install pip and awsebcli
           command: |
             apt-get update && apt-get install -y python-pip python-dev
-            pip install awscli==1.16.9 awsebcli==3.14.4
+            pip install awscli==1.16.9
+            sudo -H pip install awsebcli==3.14.4 --upgrade --ignore-installed
             echo 'export PATH=~/.local/bin/:$PATH' >> $BASH_ENV
             eb --version
       - checkout
