@@ -6,5 +6,5 @@ branch-defaults:
 global:
   application_name: 00noderune
   default_platform: 64bit Amazon Linux 2017.09 v2.6.2 running Ruby 2.4 (Passenger Standalone)
-  default_region: eu-west-1
+  default_region: eu-east-2a
   sc: git
