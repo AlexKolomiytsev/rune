@@ -43,7 +43,7 @@ jobs:
             yarn build
       - run:
           name: Deploying
-          command: eb deploy 00noderune-env
+          command: eb deploy
       - save_cache:
           key: yarn-packages-{{ .Branch }}-{{ checksum "package.json" }}
           paths:
