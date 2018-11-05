@@ -1547,6 +1547,12 @@ duplexify@^3.4.2, duplexify@^3.6.0:
     readable-stream "^2.0.0"
     stream-shift "^1.0.0"
 
+eb-disable-npm@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/eb-disable-npm/-/eb-disable-npm-1.0.1.tgz#9fbcc19012d48c87d19f9c4192efa83038192afa"
+  dependencies:
+    install-files "^1.1.5"
+
 ecdsa-sig-formatter@1.0.10:
   version "1.0.10"
   resolved "https://registry.yarnpkg.com/ecdsa-sig-formatter/-/ecdsa-sig-formatter-1.0.10.tgz#1c595000f04a8897dfb85000892a0f4c33af86c3"
@@ -2534,6 +2540,13 @@ inquirer@^3.0.6:
     strip-ansi "^4.0.0"
     through "^2.3.6"
 
+install-files@^1.1.5:
+  version "1.1.5"
+  resolved "https://registry.yarnpkg.com/install-files/-/install-files-1.1.5.tgz#07d40e5a8f052033673c2cd56d96011fadd91171"
+  dependencies:
+    ncp "^2.0.0"
+    yargs "^4.8.1"
+
 interpret@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/interpret/-/interpret-1.1.0.tgz#7ed1b1410c6a0e0f78cf95d3b8440c63f78b8614"
@@ -3457,6 +3470,10 @@ nanomatch@^1.2.9:
 natural-compare@^1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/natural-compare/-/natural-compare-1.4.0.tgz#4abebfeed7541f2c27acfb29bdbbd15c8d5ba4f7"
+
+ncp@^2.0.0:
+  version "2.0.0"
+  resolved "http://registry.npmjs.org/ncp/-/ncp-2.0.0.tgz#195a21d6c46e361d2fb1281ba38b91e9df7bdbb3"
 
 needle@^2.2.1:
   version "2.2.4"
@@ -5649,7 +5666,7 @@ yargs-parser@^2.4.1:
     camelcase "^3.0.0"
     lodash.assign "^4.0.6"
 
-yargs@4.x.x:
+yargs@4.x.x, yargs@^4.8.1:
   version "4.8.1"
   resolved "http://registry.npmjs.org/yargs/-/yargs-4.8.1.tgz#c0c42924ca4aaa6b0e6da1739dfb216439f9ddc0"
   dependencies:
