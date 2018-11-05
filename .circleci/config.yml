@@ -32,15 +32,6 @@ jobs:
           name: Types check
           command: yarn tsc
       - run:
-          name: Build
-          command: |
-            if [ -z "${CIRCLE_TAG}" ]; then
-              ARCHIVE_TAG=sha-${CIRCLE_SHA1::7};
-            else
-              ARCHIVE_TAG=${CIRCLE_TAG};
-            fi
-            yarn build
-      - run:
           name: Deploying
           command: eb deploy
       - save_cache:
