@@ -41,7 +41,6 @@ jobs:
               ARCHIVE_TAG=${CIRCLE_TAG};
             fi
             yarn build
-            tar -czf ${ARCHIVE_TAG}.tar.gz dist/
       - run:
           name: Deploying
           command: eb deploy 00noderune-env
@@ -50,24 +49,9 @@ jobs:
           paths:
             - ~/.cache/yarn
             - node_modules
-#  deploy:
-#    working_directory: ~/rune
-#    docker:
-#      - image: circleci/node:10
-#        user: root
-#    steps:
-#      - run:
-#          name: Install pip and eb cli
-#          command: |
-#            apt-get update && apt-get install -y python-pip python-dev
-#
-
 
 workflows:
   version: 2
   build-and-deploy:
     jobs:
       - build
-#      - deploy:
-#          requires:
-#            - build
