@@ -15,7 +15,8 @@ jobs:
           command: |
             apt-get update && apt-get install -y python-pip python-dev
             pip install awscli==1.14.38
-            pip install awsebcli --upgrade --user
+            sudo pip install awsebcli --upgrade --ignore-installed
+            echo 'export PATH=~/.local/bin/:$PATH' >> $BASH_ENV
       - checkout
       - restore_cache:
           name: Restore Yarn Package Cache
