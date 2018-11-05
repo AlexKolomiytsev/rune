@@ -11,11 +11,10 @@ jobs:
           name: Install yarn
           command: npm i -g yarn
       - run:
-          name: Install pip and tools
+          name: Install pip and awscli
           command: |
-            curl -O https://bootstrap.pypa.io/get-pip.py
-            python get-pip.py --user
-            python -m pip install awsebcli --upgrade --user
+            apt-get update && apt-get install -y python-pip python-dev
+            sudo -H pip install awsebcli==3.7.4 --upgrade --ignore-installed
             echo 'export PATH=~/.local/bin/:$PATH' >> $BASH_ENV
       - checkout
       - restore_cache:
@@ -42,7 +41,6 @@ jobs:
             fi
             yarn build
             tar -czf ${ARCHIVE_TAG}.tar.gz dist/
-            aws s3 cp ${ARCHIVE_TAG}.tar.gz s3://00noderune/${ARCHIVE_TAG}.tar.gz
       - save_cache:
           key: yarn-packages-{{ .Branch }}-{{ checksum "package.json" }}
           paths:
