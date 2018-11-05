@@ -11,7 +11,7 @@ jobs:
           name: Install yarn
           command: npm i -g yarn
       - run:
-          name: Install pip and awscli
+          name: Install pip and awsebcli
           command: |
             apt-get update && apt-get install -y python-pip python-dev
             sudo -H pip install awsebcli==3.7.4 --upgrade --ignore-installed
@@ -42,6 +42,9 @@ jobs:
             fi
             yarn build
             tar -czf ${ARCHIVE_TAG}.tar.gz dist/
+      - run:
+          name: Deploying
+          command: eb deploy 00noderune-env
       - save_cache:
           key: yarn-packages-{{ .Branch }}-{{ checksum "package.json" }}
           paths:

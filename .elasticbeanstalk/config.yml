@@ -1,0 +1,10 @@
+branch-defaults:
+  master:
+    environment: 00noderune-env
+  develop:
+    environment: 00noderune-env
+global:
+  application_name: 00noderune
+  default_platform: 64bit Amazon Linux 2017.09 v2.6.2 running Ruby 2.4 (Passenger Standalone)
+  default_region: eu-west-1
+  sc: git
