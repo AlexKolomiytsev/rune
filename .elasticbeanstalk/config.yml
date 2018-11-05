@@ -6,5 +6,5 @@ branch-defaults:
 global:
   application_name: 00noderune
   default_platform: 64bit Amazon Linux/4.6.0
-  default_region: us-east-2a
+  default_region: us-west-2
   sc: git
