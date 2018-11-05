@@ -15,6 +15,7 @@ jobs:
           command: |
             apt-get update && apt-get install -y python-pip python-dev
             pip install awscli==1.14.38
+            pip install awsebcli --upgrade --user
       - checkout
       - restore_cache:
           name: Restore Yarn Package Cache
@@ -46,24 +47,24 @@ jobs:
           paths:
             - ~/.cache/yarn
             - node_modules
-  deploy:
-    working_directory: ~/rune
-    docker:
-      - image: circleci/node:10
-        user: root
-    steps:
-      - run:
-          name: Install pip and eb cli
-          command: |
-            apt-get update && apt-get install -y python-pip python-dev
-            pip install awsebcli --upgrade --user
+#  deploy:
+#    working_directory: ~/rune
+#    docker:
+#      - image: circleci/node:10
+#        user: root
+#    steps:
+#      - run:
+#          name: Install pip and eb cli
+#          command: |
+#            apt-get update && apt-get install -y python-pip python-dev
+#
 
-            eb --version
+
 workflows:
   version: 2
   build-and-deploy:
     jobs:
       - build
-      - deploy:
-          requires:
-            - build
+#      - deploy:
+#          requires:
+#            - build
