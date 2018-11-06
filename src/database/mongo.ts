@@ -7,11 +7,11 @@ const { MONGO_DB } = config.get('/constants/DB_ADAPTERS');
 export class Mongo {
   private static config() {
     const cfg = config.get('/db', { dbConnection: MONGO_DB });
-    const { connection, host, port, dbName } = cfg;
+    const { connection, host, port, user, pass, dbName } = cfg;
 
     return {
       ...cfg,
-      url: `${connection}://${host}:${port}/${dbName}`,
+      url: `${connection}://${user}:${pass}@${host}:${port}/${dbName}`,
     };
   }
 
