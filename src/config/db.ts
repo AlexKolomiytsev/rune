@@ -9,7 +9,7 @@ export const DB_ADAPTERS = {
 
 const connections = {
   [DB_ADAPTERS.MONGO_DB]: {
-    connection: process.env.MONGODB_CONNECTION,
+    connection: 'mongodb',
     host: process.env.MONGODB_HOST,
     port: process.env.MONGODB_PORT,
     dbName: process.env.MONGODB_DATABASE,
@@ -17,7 +17,7 @@ const connections = {
     pass: process.env.MONGODB_PASS,
   },
   [DB_ADAPTERS.POSTGRES]: {
-    connection: process.env.POSTGRES_CONNECTION,
+    connection: 'postgresql',
     host: process.env.POSTGRES_HOST,
     port: process.env.POSTGRES_PORT,
     dbName: process.env.POSTGRES_DATABASE,
