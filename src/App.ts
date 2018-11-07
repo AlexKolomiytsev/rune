@@ -41,9 +41,9 @@ class App {
     this.socket = socketIo(this.http);
   }
 
-  public start() {
+  public async start() {
     this.configure();
-    this.connectDb();
+    await this.connectDb();
 
     this.mountRoutes();
     // TODO: promisify callback instead of returning a promise
@@ -74,9 +74,9 @@ class App {
     this.app.set('view engine', 'pug');
   }
 
-  private connectDb() {
+  private async connectDb() {
     const mongo = new Db(MONGO_DB);
-    mongo.connect();
+    await mongo.connect();
   }
 
   private mountRoutes(): void {

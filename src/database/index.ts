@@ -10,8 +10,8 @@ export default class Db {
     this.db = Db.connectionInstance[dbConnection];
   }
 
-  public connect() {
-    this.db.connect();
+  public async connect() {
+    await this.db.connect();
   }
 
   private static get connectionInstance(): { [key: string]: Mongo } {

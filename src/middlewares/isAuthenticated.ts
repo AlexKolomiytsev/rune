@@ -10,10 +10,6 @@ export default async (req: Request, res: Response, next: NextFunction) => {
     const { authorization } = req.headers;
     const headersAccessToken = authorization && authorization.split(' ')[1];
 
-    console.log('))))))))))))))))))))))))))))))(((((((((((((((((((((((((((((');
-    console.log('env variables', process.env.NODE_ENV);
-    console.log('))))))))))))))))))))))))))))))(((((((((((((((((((((((((((((');
-
     const accessToken = headersAccessToken || bodyAccessToken || queryAccessToken;
 
     if (!accessToken) throw boom.unauthorized('No accessToken provided');
