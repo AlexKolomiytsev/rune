@@ -3,5 +3,5 @@ dotenv.config({ path: `./.env.${process.env.NODE_ENV}` });
 
 export default {
   host: process.env.APP_HOST,
-  port: process.env.APP_PORT,
+  port: process.env.PORT || 8080,
 };
