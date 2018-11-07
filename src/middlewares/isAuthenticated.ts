@@ -11,7 +11,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
     const headersAccessToken = authorization && authorization.split(' ')[1];
 
     console.log('))))))))))))))))))))))))))))))(((((((((((((((((((((((((((((');
-    console.log('env variables', process.env);
+    console.log('env variables', process.env.NODE_ENV);
     console.log('))))))))))))))))))))))))))))))(((((((((((((((((((((((((((((');
 
     const accessToken = headersAccessToken || bodyAccessToken || queryAccessToken;

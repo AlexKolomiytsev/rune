@@ -70,16 +70,6 @@ class App {
     this.app.use(bodyParser.json());
     this.app.use(cors());
     this.app.use(morgan('dev'));
-
-    // configure handling of CORS requests
-    this.app.use((req, res, next) => {
-      // tslint:disable-next-line
-      console.log(req);
-      res.setHeader('Access-Control-Allow-Origin', '*');
-      res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE');
-      res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization');
-      next();
-    });
     this.app.set('views', './views/pages');
     this.app.set('view engine', 'pug');
   }
