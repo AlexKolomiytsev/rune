@@ -5,11 +5,11 @@ import { User } from '@app/models';
 import config from '@app/config';
 import { emailService } from '@app/services';
 
-const { host, port } = config.get('/server');
+const { url } = config.get('/server');
 const { prefix } = config.get('/views');
 const verificationTokenExpiresIn = config.get('/auth/verificationTokenExpiresIn');
 
-const viewsRoot = `http://${host}:${port}/${prefix}/auth/verify-email`;
+const viewsRoot = `${url}/${prefix}/auth/verify-email`;
 
 class AuthSignUpHandler {
   constructor() {
