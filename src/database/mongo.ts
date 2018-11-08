@@ -28,6 +28,8 @@ export class Mongo {
 
   public async connect() {
     try {
+      console.log('Mongo.config().url', Mongo.config().url);
+
       await this.mongoose.connect(
         Mongo.config().url,
         { useNewUrlParser: true },
