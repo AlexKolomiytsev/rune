@@ -33,7 +33,7 @@ export class Mongo {
         { useNewUrlParser: true },
       );
     } catch (e) {
-      console.log(e);
+      // e
     }
   }
 }
