@@ -12,8 +12,6 @@ export default async (req: Request, res: Response, next: NextFunction) => {
 
     const accessToken = headersAccessToken || bodyAccessToken || queryAccessToken;
 
-    console.log(process.env);
-
     if (!accessToken) throw boom.unauthorized('No accessToken provided');
 
     const decoded = await verifyJwt(accessToken, config.get('/auth/accessTokenSecret'));
