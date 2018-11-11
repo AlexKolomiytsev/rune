@@ -57,4 +57,5 @@ module.exports = {
   target: 'node',
   externals: nodeModules,
   stats: 'errors-only',
+  mode: 'development',
 };
