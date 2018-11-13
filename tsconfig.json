@@ -10,6 +10,7 @@
     "node_modules"
   ],
   "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
     "module": "commonjs",
     "noImplicitAny": true,
     "target": "es6",
