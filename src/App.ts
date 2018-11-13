@@ -43,26 +43,31 @@ class App {
 
   public async start() {
     this.configure();
-    await this.connectDb();
 
-    this.mountRoutes();
-    // TODO: promisify callback instead of returning a promise
-    // tslint:disable-next-line ter-arrow-parens
-    return new Promise((resolve, reject) => {
-      this.server = this.app.listen(this.port, this.host, (err: Error) => {
-        if (!err) {
-          // tslint:disable-next-line no-console
-          console.log(
-            colors.bgMagenta.black(
-              `\nApplication is running at ${this.host}:${this.port} in ${this.mode} mode\n`,
-            ),
-          );
-          resolve();
-        } else {
-          reject(err);
-        }
+    try {
+      await this.connectDb();
+      this.mountRoutes();
+
+      // TODO: promisify callback instead of returning a promise
+      // tslint:disable-next-line ter-arrow-parens
+      return new Promise((resolve, reject) => {
+        this.server = this.app.listen(this.port, this.host, (err: Error) => {
+          if (!err) {
+            // tslint:disable-next-line no-console
+            console.log(
+              colors.bgMagenta.black(
+                `\nApplication is running at ${this.host}:${this.port} in ${this.mode} mode\n`,
+              ),
+            );
+            resolve();
+          } else {
+            reject(err);
+          }
+        });
       });
-    });
+    } catch (e) {
+      console.error(e);
+    }
   }
 
   private configure() {
@@ -76,7 +81,7 @@ class App {
 
   private async connectDb() {
     const mongo = new Db(MONGO_DB);
-    await mongo.connect();
+    return await mongo.connect();
   }
 
   private mountRoutes(): void {

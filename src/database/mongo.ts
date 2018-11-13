@@ -27,13 +27,9 @@ export class Mongo {
   }
 
   public async connect() {
-    try {
-      await this.mongoose.connect(
-        Mongo.config().url,
-        { useNewUrlParser: true },
-      );
-    } catch (e) {
-      // e
-    }
+    return await this.mongoose.connect(
+      Mongo.config().url,
+      { useNewUrlParser: true },
+    );
   }
 }
