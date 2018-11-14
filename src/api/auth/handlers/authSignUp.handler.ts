@@ -31,7 +31,6 @@ class AuthSignUpHandler {
       const plainUser = createdUser.toObject();
 
       // TODO: dispatch email notification by Bull job scheduler
-      // TODO: create templates
       await emailService.send(
         {
           filename: 'authVerifyEmail.pug',

@@ -19,10 +19,10 @@ const { MONGO_DB } = config.get('/constants/DB_ADAPTERS');
 
 class App {
   public app: express.Application;
-  public server: any;
-  private http: any;
+  public server: http.Server;
+  private http: http.Server;
   // @ts-ignore
-  private socket: any;
+  private socket: socketIo.Server;
   private port: number;
   private apiPrefix: string;
   private viewsPrefix: string;
@@ -54,7 +54,7 @@ class App {
     this.app.use(bodyParser.urlencoded({ extended: true }));
     this.app.use(bodyParser.json());
     this.app.use(cors());
-    this.app.use(morgan('dev'));
+    this.app.use(morgan('common'));
     this.app.set('views', './views/pages');
     this.app.set('view engine', 'pug');
   }
