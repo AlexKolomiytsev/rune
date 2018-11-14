@@ -1,0 +1,10 @@
+apps:
+  - name: noderune_server
+    script: ./dist/index.js
+    instances: max
+    wait_ready: true
+    listen_timeout: 3000
+    env:
+      NODE_ENV: development
+    env_production:
+      NODE_ENV: production
