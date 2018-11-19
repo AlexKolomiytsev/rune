@@ -1,2 +1,2 @@
 export { default as authApi } from './auth';
-export { default as boilerplateApi } from './boilerplate';
+export { default as usersApi } from './users';
