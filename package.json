@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "webpack && pm2-runtime start ecosystem.yaml --env production",
+    "start": "webpack && pm2-runtime start ecosystem.yaml",
     "build": "webpack",
     "dev": "webpack --watch & nodemon dist",
     "test": "webpack && mocha dist/tests.js",
