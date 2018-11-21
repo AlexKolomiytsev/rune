@@ -23,11 +23,12 @@ class AuthLoginHandler {
 
       if (!isPasswordsMatched) throw boom.unauthorized('Bad credentials');
 
-      const accessToken = jsonwebtoken.sign(
-        user.toObject(),
-        config.get('/auth/accessTokenSecret'),
-        { expiresIn: config.get('/auth/accessTokenExpiresIn') },
-      );
+      const userJSON = user.toObject();
+      delete userJSON.password;
+
+      const accessToken = jsonwebtoken.sign(userJSON, config.get('/auth/accessTokenSecret'), {
+        expiresIn: config.get('/auth/accessTokenExpiresIn'),
+      });
 
       return res.reply({
         accessToken,

@@ -16,8 +16,6 @@ export default async (req: Request, res: Response, next: NextFunction) => {
 
     const decoded = await verifyJwt(accessToken, config.get('/auth/accessTokenSecret'));
 
-    delete decoded.password;
-
     req.user = decoded;
 
     return next();
