@@ -11,7 +11,7 @@ export default class Db {
   }
 
   public async connect() {
-    return await this.db.connect();
+    return this.db.connect();
   }
 
   private static get connectionInstance(): { [key: string]: Mongo } {

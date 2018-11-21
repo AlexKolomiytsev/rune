@@ -27,7 +27,7 @@ export class Mongo {
   }
 
   public async connect() {
-    return await this.mongoose.connect(
+    return this.mongoose.connect(
       Mongo.config().url,
       { useNewUrlParser: true },
     );

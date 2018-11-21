@@ -61,7 +61,7 @@ class App {
 
   private async connectDb() {
     const mongo = new Db(MONGO_DB);
-    return await mongo.connect();
+    return mongo.connect();
   }
 
   private mountRoutes(): void {
