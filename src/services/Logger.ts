@@ -1,6 +1,14 @@
 import * as colors from 'colors';
 import * as moment from 'moment';
 
+enum Types {
+  Success = 'Success',
+  Error = 'Error',
+  Warning = 'Warning',
+  Info = 'Info',
+}
+const { Success, Error, Warning, Info } = Types;
+
 class Logger {
   private dateFormat: string;
 
@@ -9,36 +17,36 @@ class Logger {
   }
 
   public success(msg: any) {
-    this.log('success', msg);
+    this.log(Success, msg);
   }
 
   public error(msg: any) {
-    this.log('error', msg);
+    this.log(Error, msg);
   }
 
   public warning(msg: any) {
-    this.log('warning', msg);
+    this.log(Warning, msg);
   }
 
   public info(msg: any) {
-    this.log('info', msg);
+    this.log(Info, msg);
   }
 
   // tslint:disable no-console
-  private log(type: 'success' | 'error' | 'warning' | 'info', msg: any) {
-    const prefix = colors.cyan(`[logger] - ${type} - ${moment().format(this.dateFormat)}:`);
+  private log(type: Types, msg: any) {
+    const prefix = colors.cyan(`[Logger] - ${type} - ${moment().format(this.dateFormat)}:`);
 
     switch (type) {
-      case 'success':
+      case Success:
         console.log(prefix, colors.green(msg));
         break;
-      case 'error':
+      case Error:
         console.error(prefix, colors.red(msg));
         break;
-      case 'warning':
+      case Warning:
         console.warn(prefix, colors.yellow(msg));
         break;
-      case 'info':
+      case Info:
         console.info(prefix, colors.blue(msg));
         break;
     }
