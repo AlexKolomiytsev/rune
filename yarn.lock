@@ -88,7 +88,7 @@
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/@types/bcrypt/-/bcrypt-3.0.0.tgz#851489a9065a067cb7f3c9cbe4ce9bed8bba0876"
 
-"@types/bluebird@^3.5.24":
+"@types/bluebird@*", "@types/bluebird@^3.5.24":
   version "3.5.24"
   resolved "https://registry.yarnpkg.com/@types/bluebird/-/bluebird-3.5.24.tgz#11f76812531c14f793b8ecbf1de96f672905de8a"
 
@@ -108,6 +108,13 @@
   resolved "https://registry.yarnpkg.com/@types/bson/-/bson-1.0.11.tgz#c95ad69bb0b3f5c33b4bb6cc86d86cafb273335c"
   dependencies:
     "@types/node" "*"
+
+"@types/bull@^3.4.1":
+  version "3.4.1"
+  resolved "https://registry.yarnpkg.com/@types/bull/-/bull-3.4.1.tgz#2db080e61a2b0778e12a79cfd3e77e539d810137"
+  dependencies:
+    "@types/bluebird" "*"
+    "@types/ioredis" "*"
 
 "@types/chai@^4.1.6":
   version "4.1.6"
@@ -154,6 +161,12 @@
     "@types/body-parser" "*"
     "@types/express-serve-static-core" "*"
     "@types/serve-static" "*"
+
+"@types/ioredis@*":
+  version "4.0.4"
+  resolved "https://registry.yarnpkg.com/@types/ioredis/-/ioredis-4.0.4.tgz#c0a809064c05e4c2663803128d46042e73c92558"
+  dependencies:
+    "@types/node" "*"
 
 "@types/jsonwebtoken@^7.2.8":
   version "7.2.8"
