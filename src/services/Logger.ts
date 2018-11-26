@@ -16,24 +16,24 @@ class Logger {
     this.dateFormat = 'YYYY-MM-DD [at] hh:mm:ssa';
   }
 
-  public success(msg: any) {
-    this.log(Success, msg);
+  public success(...msg: any) {
+    this.log(Success, ...msg);
   }
 
-  public error(msg: any) {
-    this.log(Error, msg);
+  public error(...msg: any) {
+    this.log(Error, ...msg);
   }
 
-  public warning(msg: any) {
-    this.log(Warning, msg);
+  public warning(...msg: any) {
+    this.log(Warning, ...msg);
   }
 
-  public info(msg: any) {
-    this.log(Info, msg);
+  public info(...msg: any) {
+    this.log(Info, ...msg);
   }
 
   // tslint:disable no-console
-  private log(type: Types, msg: any) {
+  private log(type: Types, ...msg: any) {
     const prefix = colors.cyan(`[Logger] - ${type} - ${moment().format(this.dateFormat)}:`);
 
     switch (type) {
