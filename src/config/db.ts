@@ -8,6 +8,12 @@ export const DB_ADAPTERS = {
 };
 
 const connections = {
+  [DB_ADAPTERS.REDIS]: {
+    connection: 'redis',
+    host: process.env.REDIS_HOST || 'localhost',
+    port: process.env.REDIS_PORT || '6379',
+    password: process.env.REDIS_PASSWORD || '',
+  },
   [DB_ADAPTERS.MONGO_DB]: {
     connection: 'mongodb',
     host: process.env.MONGODB_HOST,
