@@ -6,9 +6,9 @@ import { renderFile, LocalsObject } from 'pug';
 
 import config from '@app/config';
 
-interface IMailOptions extends SendMailOptions {
+export interface IMailOptions extends SendMailOptions {
   filename: string;
-  isActionRequired: boolean;
+  isActionRequired?: boolean;
 }
 
 class EmailService {

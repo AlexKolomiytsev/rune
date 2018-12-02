@@ -6,3 +6,9 @@ apps:
     listen_timeout: 3000
     env:
       NODE_ENV: production
+  - name: noderune_workers
+    script: ./dist/workers.js
+    instances: max
+    env:
+      NODE_ENV: production
+

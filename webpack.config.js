@@ -15,6 +15,7 @@ module.exports = {
   entry: {
     index: './src/index.ts',
     tests: './src/tests/index.ts',
+    workers: './src/workers/index.ts',
   },
   output: {
     path: __dirname + '/dist',

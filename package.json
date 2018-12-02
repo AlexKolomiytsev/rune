@@ -7,6 +7,7 @@
     "start": "webpack && pm2-runtime start ecosystem.yaml",
     "build": "webpack",
     "dev": "webpack --watch & nodemon dist",
+    "workers": "webpack && node dist/workers.js",
     "test": "webpack && mocha dist/tests.js",
     "tslint": "tslint -c tslint.json --project tsconfig.json -t stylish",
     "tscheck": "tsc --project tsconfig.json --noEmit",

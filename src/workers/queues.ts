@@ -1,4 +1,4 @@
-import Queue from 'bull';
+import * as Queue from 'bull';
 
 export const EMAIL_NOTIFICATION = 'EMAIL_NOTIFICATION';
 

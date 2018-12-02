@@ -3,12 +3,12 @@ import * as jsonwebtoken from 'jsonwebtoken';
 
 import { User } from '@app/models';
 import config from '@app/config';
-import { emailService } from '@app/services';
+import { MailTypes } from '@app/constants';
+import queues, { EMAIL_NOTIFICATION } from '@app/workers/queues';
 
 const { url } = config.get('/server');
 const { prefix } = config.get('/views');
 const verificationTokenExpiresIn = config.get('/auth/verificationTokenExpiresIn');
-
 const viewsRoot = `${url}/${prefix}/auth/verify-email`;
 
 class AuthSignUpHandler {
@@ -30,19 +30,15 @@ class AuthSignUpHandler {
       const createdUser: any = await User.create({ ...user, password, verificationToken });
       const plainUser = createdUser.toObject();
 
-      // TODO: dispatch email notification by Bull job scheduler
-      await emailService.send(
-        {
-          filename: 'authVerifyEmail.pug',
+      queues[EMAIL_NOTIFICATION].add({
+        mailType: MailTypes.EmailVerification,
+        options: {
           to: plainUser.email,
-          subject: 'Verify your email address to sign up in the Node Rune system.',
-          isActionRequired: true,
         },
-        {
-          headerTitle: 'Please verify your Rune account',
+        locals: {
           activationLink: `${viewsRoot}/${plainUser.verificationToken}`,
         },
-      );
+      });
 
       delete plainUser.verificationToken;
       delete plainUser.password;

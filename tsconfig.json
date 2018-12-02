@@ -13,7 +13,7 @@
     "allowSyntheticDefaultImports": true,
     "module": "commonjs",
     "noImplicitAny": true,
-    "target": "es6",
+    "target": "esnext",
     "outDir": "dist",
     "sourceMap": true,
     "noUnusedLocals": true,

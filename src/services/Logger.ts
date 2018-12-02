@@ -35,19 +35,20 @@ class Logger {
   // tslint:disable no-console
   private log(type: Types, ...msg: any) {
     const prefix = colors.cyan(`[Logger] - ${type} - ${moment().format(this.dateFormat)}:`);
+    const message = msg.join(' ');
 
     switch (type) {
       case Success:
-        console.log(prefix, colors.green(msg));
+        console.log(prefix, colors.green(message));
         break;
       case Error:
-        console.error(prefix, colors.red(msg));
+        console.error(prefix, colors.red(message));
         break;
       case Warning:
-        console.warn(prefix, colors.yellow(msg));
+        console.warn(prefix, colors.yellow(message));
         break;
       case Info:
-        console.info(prefix, colors.blue(msg));
+        console.info(prefix, colors.blue(message));
         break;
     }
   }
