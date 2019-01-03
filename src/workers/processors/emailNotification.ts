@@ -10,7 +10,17 @@ import { MailTypes, MAIL_TYPES_OPTIONS } from '@app/constants';
 export default (
   job: Job<{ options: IMailOptions; locals: LocalsObject; mailType?: MailTypes }>,
 ): Promise<any> => {
-  logger.info('Starting processing', EMAIL_NOTIFICATION);
+  logger.info(
+    'Starting processing',
+    JSON.stringify(
+      {
+        queueName: EMAIL_NOTIFICATION,
+        data: job.data,
+      },
+      null,
+      2,
+    ),
+  );
 
   const { options, locals, mailType } = job.data;
   const predefinedData = MAIL_TYPES_OPTIONS[mailType];
