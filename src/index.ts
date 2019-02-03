@@ -1,5 +1,4 @@
 import 'reflect-metadata';
-import * as mongoose from 'mongoose';
 import App from './App';
 
 import config from '@app/config';
@@ -26,8 +25,12 @@ process.on('SIGINT', () => {
     }
     logger.info('Server connection closed');
 
-    if (mongoose.connection.readyState === 1) {
-      mongoose.connection.close(() => {
+    app.connections.redis.quit(() => {
+      logger.info('Redis connection closed');
+    });
+
+    if (app.connections.mongo.connection.readyState === 1) {
+      app.connections.mongo.connection.close(() => {
         logger.info('Mongoose connection closed');
         process.exit(0);
       });

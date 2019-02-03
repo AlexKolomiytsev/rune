@@ -1,5 +1,6 @@
 import * as Confidence from 'confidence';
 import * as dotenv from 'dotenv';
+import { pickBy } from 'lodash';
 
 import constants from './constants';
 import api from './api';
@@ -34,5 +35,11 @@ const config = {
 const store = new Confidence.Store(config);
 
 export default {
-  get: (key: string, criteria = {}) => store.get(key, { ...globalCriteria, ...criteria }),
+  get: (key: string, criteria = {}, { removeFalsy = false } = {}) => {
+    const cfg = store.get(key, { ...globalCriteria, ...criteria });
+
+    if (removeFalsy) return pickBy(cfg, v => !!v);
+
+    return cfg;
+  },
 };

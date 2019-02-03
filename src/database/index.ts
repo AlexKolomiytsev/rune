@@ -1,10 +1,11 @@
 import config from '@app/config';
 import { Mongo } from '@app/database/mongo';
+import { Redis } from '@app/database/redis';
 
-const { MONGO_DB } = config.get('/constants/DB_ADAPTERS');
+const { MONGO_DB, REDIS } = config.get('/constants/DB_ADAPTERS');
 
 export default class Db {
-  private db: Mongo;
+  private db: Mongo | Redis;
 
   constructor(dbConnection: string) {
     this.db = Db.connectionInstance[dbConnection];
@@ -14,9 +15,10 @@ export default class Db {
     return this.db.connect();
   }
 
-  private static get connectionInstance(): { [key: string]: Mongo } {
+  private static get connectionInstance(): { [key: string]: Mongo | Redis } {
     return {
       [MONGO_DB]: new Mongo(),
+      [REDIS]: new Redis(),
     };
   }
 }

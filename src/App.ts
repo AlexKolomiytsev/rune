@@ -15,11 +15,16 @@ import responder from '@app/responder';
 // @ts-ignore
 express.response = responder;
 
-const { MONGO_DB } = config.get('/constants/DB_ADAPTERS');
+const { MONGO_DB, REDIS } = config.get('/constants/DB_ADAPTERS');
 
 class App {
   public app: express.Application;
   public server: http.Server;
+  public redisClient: any;
+  public connections: {
+    mongo: any;
+    redis: any;
+  };
   private http: http.Server;
   // @ts-ignore
   private socket: socketIo.Server;
@@ -41,7 +46,8 @@ class App {
     this.configure();
 
     try {
-      await this.connectDb();
+      const [mongo, redis] = await this.connectDb();
+      this.connections = { mongo, redis };
       this.mountRoutes();
 
       this.server = this.app.listen(this.port, cb);
@@ -59,9 +65,9 @@ class App {
     this.app.set('view engine', 'pug');
   }
 
-  private async connectDb() {
-    const mongo = new Db(MONGO_DB);
-    return mongo.connect();
+  private connectDb() {
+    const connections = [MONGO_DB, REDIS].map(connection => new Db(connection).connect());
+    return Promise.all(connections);
   }
 
   private mountRoutes(): void {
