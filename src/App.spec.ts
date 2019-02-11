@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 
 import App from '@app/App';
-import config from '@app/config';
+import config from '@app/utils/config';
 
 const { port } = config.get('/server');
 

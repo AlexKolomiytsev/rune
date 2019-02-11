@@ -6,11 +6,11 @@ import * as morgan from 'morgan';
 import * as socketIo from 'socket.io';
 
 import { logger } from '@app/services';
-import config from '@app/config';
+import config from '@app/utils/config';
 import api from '@app/api/routes';
 import views from '@app/views/routes';
 import Db from '@app/database';
-import responder from '@app/responder';
+import responder from '@app/utils/responder';
 
 // @ts-ignore
 express.response = responder;

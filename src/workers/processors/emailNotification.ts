@@ -5,7 +5,7 @@ import { get } from 'lodash';
 import { IMailOptions } from '@app/services/EmailService';
 import { emailService, logger } from '@app/services';
 import { EMAIL_NOTIFICATION } from '@app/workers/queues';
-import { MailTypes, MAIL_TYPES_OPTIONS } from '@app/constants';
+import { MailTypes, MAIL_TYPES_OPTIONS } from '@app/utils/constants';
 
 export default (
   job: Job<{ options: IMailOptions; locals: LocalsObject; mailType?: MailTypes }>,

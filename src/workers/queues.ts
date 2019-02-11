@@ -1,5 +1,5 @@
 import * as Queue from 'bull';
-import config from '@app/config';
+import config from '@app/utils/config';
 
 const { REDIS } = config.get('/constants/DB_ADAPTERS');
 const redisConfig = config.get('/db', { dbConnection: REDIS });

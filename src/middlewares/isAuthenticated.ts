@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import * as boom from 'boom';
-import config from '@app/config';
-import { verifyJwt } from '@app/helpers';
+import config from '@app/utils/config';
+import { verifyJwt } from '@app/utils/helpers';
 
 export default async (req: Request, res: Response, next: NextFunction) => {
   try {

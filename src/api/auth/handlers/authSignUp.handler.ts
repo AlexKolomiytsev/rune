@@ -2,8 +2,8 @@ import { Request, Response } from 'express';
 import * as jsonwebtoken from 'jsonwebtoken';
 
 import { User } from '@app/models';
-import config from '@app/config';
-import { MailTypes } from '@app/constants';
+import config from '@app/utils/config';
+import { MailTypes } from '@app/utils/constants';
 import queues, { EMAIL_NOTIFICATION } from '@app/workers/queues';
 
 const { url } = config.get('/server');

@@ -1,4 +1,4 @@
-import config from '@app/config';
+import config from '@app/utils/config';
 import { Mongo } from '@app/database/mongo';
 import { Redis } from '@app/database/redis';
 

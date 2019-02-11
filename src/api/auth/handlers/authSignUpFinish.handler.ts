@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
 import * as boom from 'boom';
 
-import config from '@app/config';
-import { verifyJwt } from '@app/helpers';
+import config from '@app/utils/config';
+import { verifyJwt } from '@app/utils/helpers';
 import { User } from '@app/models';
 
 class AuthSignUpFinishHandler {

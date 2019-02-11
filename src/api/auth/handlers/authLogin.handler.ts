@@ -3,7 +3,7 @@ import * as boom from 'boom';
 import * as jsonwebtoken from 'jsonwebtoken';
 
 import { User } from '@app/models';
-import config from '@app/config';
+import config from '@app/utils/config';
 
 class AuthLoginHandler {
   constructor() {

@@ -1,6 +1,6 @@
 import * as mongoose from 'mongoose';
 import * as bluebird from 'bluebird';
-import config from '@app/config';
+import config from '@app/utils/config';
 
 const { MONGO_DB } = config.get('/constants/DB_ADAPTERS');
 const cfg = config.get('/db', { dbConnection: MONGO_DB });

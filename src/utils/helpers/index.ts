@@ -1,7 +1,7 @@
 import * as jsonwebtoken from 'jsonwebtoken';
 import * as boom from 'boom';
 
-import { ERROR_NAME_TO_MESSAGE } from '@app/mappers';
+import { ERROR_NAME_TO_MESSAGE } from '../mappers';
 
 export const verifyJwt = async (token: string, secret: string): Promise<any> => {
   try {

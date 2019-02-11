@@ -1,7 +1,7 @@
 import 'reflect-metadata';
 import App from './App';
 
-import config from '@app/config';
+import config from '@app/utils/config';
 import { logger } from '@app/services';
 
 const port = config.get('/server/port');

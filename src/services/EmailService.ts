@@ -4,7 +4,7 @@ import { head } from 'lodash';
 import * as path from 'path';
 import { renderFile, LocalsObject } from 'pug';
 
-import config from '@app/config';
+import config from '@app/utils/config';
 
 export interface IMailOptions extends SendMailOptions {
   filename: string;
