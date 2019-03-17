@@ -1,5 +1,6 @@
 import * as colors from 'colors';
 import * as moment from 'moment';
+import { injectable } from 'inversify';
 
 enum Types {
   Success = 'Success',
@@ -9,12 +10,16 @@ enum Types {
 }
 const { Success, Error, Warning, Info } = Types;
 
-class Logger {
-  private dateFormat: string;
+export interface ILogger {
+  success(...message: any): void;
+  error(...message: any): void;
+  warning(...message: any): void;
+  info(...message: any): void;
+}
 
-  constructor() {
-    this.dateFormat = 'YYYY-MM-DD [at] hh:mm:ssa';
-  }
+@injectable()
+export default class Logger implements ILogger {
+  private _dateFormat: string = 'YYYY-MM-DD [at] hh:mm:ssa';
 
   public success(...msg: any) {
     this.log(Success, ...msg);
@@ -34,7 +39,7 @@ class Logger {
 
   // tslint:disable no-console
   private log(type: Types, ...msg: any) {
-    const prefix = colors.cyan(`[Logger] - ${type} - ${moment().format(this.dateFormat)}:`);
+    const prefix = colors.cyan(`[Logger] - ${type} - ${moment().format(this._dateFormat)}:`);
     const message = msg.join(' ');
 
     switch (type) {
@@ -54,5 +59,3 @@ class Logger {
   }
   // tslint:enable no-console
 }
-
-export default new Logger();

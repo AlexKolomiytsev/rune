@@ -32,8 +32,12 @@ jobs:
           name: Types check
           command: yarn tsc
       - run:
-          name: Deploying
-          command: eb deploy
+          name: Deploying to dev env
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "develop" ];
+            then
+              eb deploy
+            fi
       - save_cache:
           key: yarn-packages-{{ .Branch }}-{{ checksum "package.json" }}
           paths:

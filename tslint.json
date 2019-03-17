@@ -17,7 +17,8 @@
     "align": false,
     "no-console": {
       "severity": "warning"
-    }
+    },
+    "variable-name": [true, "check-format", "allow-leading-underscore"]
   },
   "rulesDirectory": []
 }

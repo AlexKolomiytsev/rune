@@ -1,3 +1,3 @@
 export default {
-  prefix: 'rune-api',
+  prefix: '/api/v1',
 };

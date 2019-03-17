@@ -1,5 +1,7 @@
 import * as bcrypt from 'bcrypt';
-import { Typegoose, prop, pre, instanceMethod } from 'typegoose';
+import { Typegoose, prop, pre, post, instanceMethod } from 'typegoose';
+import { Document } from 'mongoose';
+import * as boom from 'boom';
 import { isEmail } from 'validator';
 
 const SALT_ROUND = 10;
@@ -14,6 +16,17 @@ const SALT_ROUND = 10;
     next();
   } catch (e) {
     next(e);
+  }
+})
+@post<User>('save', (error: Error, _: User, next: (err?: Error) => void) => {
+  if (error) {
+    // @ts-ignore
+    const { name, code } = error;
+    if (name === 'MongoError' && code === 11000) {
+      next(boom.badData('The email already taken'));
+    } else {
+      next(error);
+    }
   }
 })
 export class User extends Typegoose {
@@ -43,8 +56,20 @@ export class User extends Typegoose {
   }
 }
 
+export interface IUserModel extends User, Document {}
+
 export default new User().getModelForClass(User, {
   schemaOptions: {
     timestamps: true,
+    toObject: {
+      virtuals: true,
+      versionKey: false,
+      transform: (_, ret) => {
+        delete ret.id;
+        delete ret.password;
+        delete ret.verificationToken;
+        return ret;
+      },
+    },
   },
 });

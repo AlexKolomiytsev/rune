@@ -1,2 +1,6 @@
 export { default as emailService } from './EmailService';
-export { default as logger } from './Logger';
+
+export * from './JwtService';
+export * from './QueueService';
+export * from './UserService';
+export * from './Logger';

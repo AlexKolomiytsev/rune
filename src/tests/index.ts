@@ -1,1 +1,1 @@
-import '@app/App.spec.ts';
+// Import spec files here

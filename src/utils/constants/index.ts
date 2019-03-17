@@ -1,3 +1,5 @@
+export { default as iocTYPES } from './iocTYPES';
+
 export enum MailTypes {
   EmailVerification,
 }
