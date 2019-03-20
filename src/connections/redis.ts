@@ -18,7 +18,10 @@ export default class Redis implements IRedis {
   }
 
   public async connect() {
-    this.client = await this.redis.createClient(cfg);
+    if (!this.client) {
+      this.client = await this.redis.createClient(cfg);
+    }
+
     return this.client;
   }
 }

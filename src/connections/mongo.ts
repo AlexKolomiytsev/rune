@@ -31,12 +31,14 @@ export default class Mongo implements IMongo {
   }
 
   public async connect() {
-    const mongooseConnection = await this.mongoose.connect(
-      Mongo.config().url,
-      { useNewUrlParser: true },
-    );
-    this.client = mongooseConnection.connection;
+    if (!this.client) {
+      const mongooseConnection = await this.mongoose.connect(
+        Mongo.config().url,
+        { useNewUrlParser: true },
+      );
+      this.client = mongooseConnection.connection;
+    }
 
-    return mongooseConnection;
+    return this.client;
   }
 }

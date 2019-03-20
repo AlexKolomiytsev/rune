@@ -1,23 +1,32 @@
-import { Transporter, SendMailOptions, createTransport } from 'nodemailer';
 import * as mailGunTransport from 'nodemailer-mailgun-transport';
-import { head } from 'lodash';
 import * as path from 'path';
+import { Transporter, SendMailOptions, createTransport, SentMessageInfo } from 'nodemailer';
 import { renderFile, LocalsObject } from 'pug';
 
 import config from '@app/utils/config';
+import { injectable } from 'inversify';
 
 export interface IMailOptions extends SendMailOptions {
   filename: string;
   isActionRequired?: boolean;
 }
 
-class EmailService {
+export interface IEmailService {
+  send(options: IMailOptions, locals: LocalsObject): Promise<SentMessageInfo>;
+}
+
+@injectable()
+export default class EmailService implements IEmailService {
   private static subjectPrefix(isActionRequired: boolean): string {
     const prefixes: { [key: string]: boolean } = {
       ['[Action required] ']: isActionRequired,
     };
 
-    return head(Object.keys(prefixes).filter(prefix => prefixes[prefix])) || '';
+    return (
+      Object.keys(prefixes)
+        .filter(prefix => prefixes[prefix])
+        .join('') || ''
+    );
   }
 
   private static extendOptions({
@@ -35,12 +44,12 @@ class EmailService {
   private viewsPath: string;
 
   constructor() {
-    this.sender = `Node Rune Server <info@${config.get('/mailgun/domain')}>`;
+    this.sender = `Node Rune Server <no-reply@${config.get('/mailgun/domain')}>`;
     this.transporter = createTransport(mailGunTransport({ auth: config.get('/mailgun') }));
     this.viewsPath = path.resolve(__dirname, 'views', 'emails');
   }
 
-  public async send(options: IMailOptions, locals: LocalsObject = {}) {
+  public async send(options: IMailOptions, locals: LocalsObject): Promise<SentMessageInfo> {
     try {
       const html = await renderFile(`.${this.viewsPath}/${options.filename}`, locals);
 
@@ -56,5 +65,3 @@ class EmailService {
     }
   }
 }
-
-export default new EmailService();

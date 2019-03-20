@@ -2,7 +2,6 @@ import { injectable } from 'inversify';
 import queues, { IQueues, EMAIL_NOTIFICATION } from '@app/workers/queues';
 import { MailTypes } from '@app/utils/constants';
 import config from '@app/utils/config';
-import { ITaskOptions } from '@app/workers/processors/emailNotification';
 
 const { url } = config.get('/server');
 const apiPrefix = config.get('/api/prefix');
@@ -24,7 +23,7 @@ export default class QueueService implements IQueueService {
     });
   }
 
-  private scheduleTask(type: keyof IQueues, options: ITaskOptions): void {
+  private scheduleTask(type: keyof IQueues, options: object): void {
     queues[type].add(options);
   }
 }

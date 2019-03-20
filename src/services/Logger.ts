@@ -15,6 +15,7 @@ export interface ILogger {
   error(...message: any): void;
   warning(...message: any): void;
   info(...message: any): void;
+  workerProcessingStarted(queueName: string, data: any): void;
 }
 
 @injectable()
@@ -35,6 +36,20 @@ export default class Logger implements ILogger {
 
   public info(...msg: any) {
     this.log(Info, ...msg);
+  }
+
+  public workerProcessingStarted(queueName: string, data: any): void {
+    this.info(
+      'Starting processing',
+      JSON.stringify(
+        {
+          queueName,
+          data,
+        },
+        null,
+        2,
+      ),
+    );
   }
 
   // tslint:disable no-console
