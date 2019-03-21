@@ -11,5 +11,8 @@ export interface IQueues {
 }
 
 export default {
-  [EMAIL_NOTIFICATION]: new Queue(EMAIL_NOTIFICATION, { redis: redisConfig }),
+  [EMAIL_NOTIFICATION]: new Queue(EMAIL_NOTIFICATION, {
+    redis: redisConfig,
+    defaultJobOptions: { attempts: 10, removeOnFail: true },
+  }),
 };

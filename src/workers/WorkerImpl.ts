@@ -23,9 +23,20 @@ export default class WorkerImpl implements IWorker {
         await queue.isReady();
         queue.process(this._processorInitializers.map[queueName]);
         this._logger.success(`Worker is listening to '${queueName}' queue`);
+
+        this.retry(queueName, queue);
       } catch (e) {
         this._logger.error(`Error listening to ${queueName} queue`, e);
       }
     });
+  }
+
+  private async retry(queueName: string, queue: Queue.Queue): Promise<void> {
+    const failed = await queue.getFailed();
+    if (failed.length) {
+      this._logger.info(`There are ${failed.length} failed jobs in a ${queueName} queue`);
+
+      failed.forEach(async job => await job.retry());
+    }
   }
 }
