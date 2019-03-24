@@ -1,6 +1,6 @@
 // @ts-ignore
 import { response, Request, Response, NextFunction } from 'express';
-import { isError, isEmpty } from 'lodash';
+import { isError, isEmpty, castArray } from 'lodash';
 import * as boom from 'boom';
 
 const getResponseCode = (method: any, payload: any) => {
@@ -28,6 +28,7 @@ class Responder {
     return this.status(output.statusCode).json({
       error: output.payload.error,
       data: error.data,
+      meta: this.meta,
       messages,
     });
   }
@@ -36,11 +37,17 @@ class Responder {
     if (!this.messages || (this.messages && !this.messages.length)) this.messages = ['ok'];
     const status = getResponseCode(this.req.method, data);
 
-    return this.status(status).json({ data, messages: this.messages });
+    return this.status(status).json({ data, meta: this.meta, messages: this.messages });
   }
 
   public static message(message: string | string[]) {
-    this.messages = Array.isArray(message) ? message : [message];
+    this.messages = castArray(message);
+
+    return this;
+  }
+
+  public static meta(meta: any) {
+    this.meta = meta;
 
     return this;
   }
@@ -58,6 +65,7 @@ export default (_: Request, res: Response, next: NextFunction) => {
   res.replyWithError = Responder.replyWithError.bind(res);
   res.replySuccessfully = Responder.replySuccessfully.bind(res);
   res.message = Responder.message.bind(res);
+  res.meta = Responder.meta.bind(res);
 
   return next();
 };

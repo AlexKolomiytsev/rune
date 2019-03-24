@@ -4,6 +4,7 @@ declare namespace Express {
   export interface Response {
     reply: any;
     message: (message: string | string[]) => Response;
+    meta: (meta: any) => Response;
     replyWithError: any;
     replySuccessfully: any;
   }

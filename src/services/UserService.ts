@@ -1,6 +1,7 @@
 import { injectable, inject } from 'inversify';
 import * as boom from 'boom';
-import { IUserDAO } from '@app/types';
+import { isNil } from 'lodash';
+import { IPageable, IUserDAO } from '@app/types';
 import { IUserModel, User } from '@app/models/User';
 import { iocTYPES } from '@app/utils/constants';
 import { IJwtService } from '@app/services/JwtService';
@@ -11,7 +12,8 @@ const accessTokenSecret = config.get('/auth/accessTokenSecret');
 
 export interface IUserService {
   create(user: Partial<User>): Promise<IUserModel>;
-  findOne(conditions: object): Promise<IUserModel>;
+  findOne(conditions: any): Promise<IUserModel>;
+  findAll(conditions?: any, options?: any): Promise<IPageable<IUserModel[]>>;
   isPasswordMatched(user: IUserModel, password: string): Promise<boolean> | null;
   verifyAndSaveUser(verificationToken: string): Promise<IUserModel>;
   verifyUserAccess(accessToken: string): Promise<User>;
@@ -30,6 +32,24 @@ export default class UserService implements IUserService {
 
   public findOne(conditions: object): Promise<IUserModel> {
     return this._userDAO.findOne(conditions);
+  }
+
+  public async findAll(conditions: any, options: any = {}): Promise<IPageable<IUserModel[]>> {
+    const { skip = 0, limit = 0 } = options;
+    const pageable = !isNil(skip) && !isNil(limit);
+    if (pageable) {
+      options.skip = Number(skip);
+      options.limit = Number(limit);
+    }
+
+    return {
+      items: await this._userDAO.find(conditions, options),
+      meta: {
+        totalCount: pageable && (await this._userDAO.count()),
+        skip,
+        limit,
+      },
+    };
   }
 
   public isPasswordMatched(user: IUserModel, password: string): Promise<boolean> | null {

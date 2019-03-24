@@ -17,6 +17,18 @@ export default class UserDAOImpl implements IUserDAO<User, IUserModel> {
     return UserModel.findOne(conditions);
   }
 
+  public async find(
+    conditions: any,
+    options: any | null,
+    projection: any | null = '-password -verificationToken',
+  ): Promise<IUserModel[]> {
+    return UserModel.find(conditions, projection, options);
+  }
+
+  public async count(options: any): Promise<number> {
+    return UserModel.estimatedDocumentCount(options);
+  }
+
   public isPasswordsMatched(user: User, password: string): Promise<boolean> | null {
     return user.comparePasswords(password);
   }
