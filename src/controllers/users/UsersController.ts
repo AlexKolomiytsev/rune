@@ -32,10 +32,17 @@ export default class UsersController extends BaseHttpController implements inter
     @response() res: Response,
     @queryParam('skip') skip: number,
     @queryParam('limit') limit: number,
+    @queryParam('search') search: string,
   ) {
     try {
-      const { items, meta } = await this._userService.findAll(null, { skip, limit });
+      const searchRegex = new RegExp(search, 'i');
 
+      // TODO: make it more generic
+      const query = {
+        $or: [{ email: searchRegex }, { firstName: searchRegex }, { lastName: searchRegex }],
+      };
+
+      const { items, meta } = await this._userService.findAll(query, { skip, limit });
       return res.meta(meta).reply(items);
     } catch (e) {
       return res.reply(e);

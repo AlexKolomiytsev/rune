@@ -45,7 +45,7 @@ export default class UserService implements IUserService {
     return {
       items: await this._userDAO.find(conditions, options),
       meta: {
-        totalCount: pageable && (await this._userDAO.count()),
+        totalCount: pageable && (await this._userDAO.count(conditions)),
         skip,
         limit,
       },

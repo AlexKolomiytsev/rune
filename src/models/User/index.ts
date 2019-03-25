@@ -1,5 +1,5 @@
 import * as bcrypt from 'bcrypt';
-import { Typegoose, prop, pre, post, instanceMethod } from 'typegoose';
+import { Typegoose, prop, pre, post, instanceMethod, index } from 'typegoose';
 import { Document } from 'mongoose';
 import * as boom from 'boom';
 import { isEmail } from 'validator';
@@ -29,6 +29,7 @@ const SALT_ROUND = 10;
     }
   }
 })
+@index({ email: 'text', firstName: 'text', lastName: 'text' })
 export class User extends Typegoose {
   @prop({
     required: true,

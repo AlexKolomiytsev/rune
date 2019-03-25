@@ -25,8 +25,8 @@ export default class UserDAOImpl implements IUserDAO<User, IUserModel> {
     return UserModel.find(conditions, projection, options);
   }
 
-  public async count(options: any): Promise<number> {
-    return UserModel.estimatedDocumentCount(options);
+  public async count(conditions: any, options: any): Promise<number> {
+    return UserModel.countDocuments(conditions, options);
   }
 
   public isPasswordsMatched(user: User, password: string): Promise<boolean> | null {
