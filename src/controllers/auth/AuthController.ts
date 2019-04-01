@@ -5,6 +5,7 @@ import {
   httpPost,
   interfaces,
   request,
+  requestHeaders,
   requestParam,
   response,
 } from 'inversify-express-utils';
@@ -13,6 +14,7 @@ import { inject } from 'inversify';
 import { Request, Response } from 'express';
 import { iocTYPES } from '@app/utils/constants';
 import { IJwtService, IQueueService, IUserService } from '@app/services';
+import { ISessionService } from '@app/services/SessionService';
 
 @controller('/auth')
 export default class AuthController extends BaseHttpController implements interfaces.Controller {
@@ -22,6 +24,8 @@ export default class AuthController extends BaseHttpController implements interf
   private readonly _jwtService: IJwtService<object>;
   @inject(iocTYPES.Queue)
   private readonly _queueService: IQueueService;
+  @inject(iocTYPES.SessionService)
+  private readonly _sessionService: ISessionService;
 
   @httpPost('/login')
   public async login(@request() req: Request, @response() res: Response) {
@@ -41,6 +45,22 @@ export default class AuthController extends BaseHttpController implements interf
       const accessToken = this._jwtService.signAccessToken(plainUser);
 
       return res.reply({ accessToken });
+    } catch (e) {
+      return res.reply(e);
+    }
+  }
+
+  @httpPost('/logout', iocTYPES.AuthMiddleware)
+  public async logout(
+    @requestHeaders('authorization') authorization: string,
+    @response() res: Response,
+  ) {
+    try {
+      const userId = this.httpContext.user.details._id;
+      const token = authorization.split(' ')[1];
+      await this._sessionService.addToBlacklisted(userId, token);
+
+      return res.message('You have successfully logged out.').reply({ userId });
     } catch (e) {
       return res.reply(e);
     }

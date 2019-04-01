@@ -6,6 +6,7 @@ import UserService from '@app/services/UserService';
 import EmailService from '@app/services/EmailService';
 import JwtService from '@app/services/JwtService';
 import QueueService from '@app/services/QueueService';
+import SessionService from '@app/services/SessionService';
 import Logger from '@app/services/Logger';
 import { Mongo, Redis } from '@app/connections';
 import { AuthMiddleware } from '@app/middlewares';
@@ -30,12 +31,13 @@ container
   .to(Redis)
   .inSingletonScope();
 
-// Implementations
+// Data Access
 container.bind(iocTYPES.UserDAO).to(UserDAOImpl);
 
 // Services
 container.bind(iocTYPES.EmailService).to(EmailService);
 container.bind(iocTYPES.UserService).to(UserService);
+container.bind(iocTYPES.SessionService).to(SessionService);
 container.bind(iocTYPES.Jwt).to(JwtService);
 container.bind(iocTYPES.Queue).to(QueueService);
 container.bind(iocTYPES.Logger).to(Logger);

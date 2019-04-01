@@ -1,5 +1,4 @@
 export default {
-  UserDAO: Symbol('UserDAO'),
   Application: Symbol('Application'),
 
   // Connections
@@ -9,9 +8,13 @@ export default {
   // Services
   EmailService: Symbol('EmailService'),
   UserService: Symbol('UserService'),
+  SessionService: Symbol('Session'),
   Queue: Symbol('Queue'),
   Jwt: Symbol('Jwt'),
   Logger: Symbol('Logger'),
+
+  // Data Access
+  UserDAO: Symbol('UserDAO'),
 
   // Worker
   Worker: Symbol('Worker'),

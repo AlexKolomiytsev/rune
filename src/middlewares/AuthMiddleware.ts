@@ -17,7 +17,7 @@ export default class AuthMiddleware extends BaseMiddleware {
 
       return next();
     } catch (e) {
-      res.reply(e);
+      return res.reply(e);
     }
   }
 }
