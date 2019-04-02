@@ -1,4 +1,5 @@
 import { Response } from 'express';
+import { Types } from 'mongoose';
 import {
   BaseHttpController,
   controller,
@@ -56,7 +57,7 @@ export default class UsersController extends BaseHttpController implements inter
   @httpPatch('/:id', iocTYPES.ValidationMiddleware)
   public async update(
     @requestBody() payload: Partial<User>,
-    @requestParam('id') userId: string,
+    @requestParam('id') userId: Types.ObjectId,
     @response() res: Response,
   ) {
     try {

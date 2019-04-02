@@ -4,17 +4,26 @@ import {
   httpGet,
   httpPost,
   interfaces,
-  request,
+  requestBody,
   requestHeaders,
   requestParam,
   response,
 } from 'inversify-express-utils';
 import * as boom from 'boom';
 import { inject } from 'inversify';
-import { Request, Response } from 'express';
+import { Response } from 'express';
 import { iocTYPES } from '@app/utils/constants';
 import { IJwtService, IQueueService, IUserService } from '@app/services';
 import { ISessionService } from '@app/services/SessionService';
+
+interface ILoginPayload {
+  email: string;
+  password: string;
+}
+interface ISignUpPayload extends ILoginPayload {
+  firstName: string;
+  lastName: string;
+}
 
 @controller('/auth')
 export default class AuthController extends BaseHttpController implements interfaces.Controller {
@@ -27,9 +36,9 @@ export default class AuthController extends BaseHttpController implements interf
   @inject(iocTYPES.SessionService)
   private readonly _sessionService: ISessionService;
 
-  @httpPost('/login')
-  public async login(@request() req: Request, @response() res: Response) {
-    const { email, password } = req.body;
+  @httpPost('/login', iocTYPES.ValidationMiddleware)
+  public async login(@requestBody() payload: ILoginPayload, @response() res: Response) {
+    const { email, password } = payload;
 
     try {
       const user = await this._userService.findOne({ email });
@@ -66,9 +75,9 @@ export default class AuthController extends BaseHttpController implements interf
     }
   }
 
-  @httpPost('/sign-up')
-  public async signUp(@request() req: Request, @response() res: Response) {
-    const { firstName, lastName, email, password } = req.body;
+  @httpPost('/sign-up', iocTYPES.ValidationMiddleware)
+  public async signUp(@requestBody() payload: ISignUpPayload, @response() res: Response) {
+    const { firstName, lastName, email, password } = payload;
     const user = { firstName, lastName, email };
 
     try {

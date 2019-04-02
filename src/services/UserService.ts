@@ -1,5 +1,5 @@
 import { injectable, inject } from 'inversify';
-import { ModelFindByIdAndUpdateOptions } from 'mongoose';
+import { ModelFindByIdAndUpdateOptions, Types } from 'mongoose';
 import * as boom from 'boom';
 import { isNil } from 'lodash';
 import { IPageable, IUserDAO } from '@app/types';
@@ -16,7 +16,7 @@ export interface IUserService {
   findOne(conditions: any): Promise<IUserModel>;
   findAll(conditions?: any, options?: any): Promise<IPageable<IUserModel[]>>;
   findByIdAndUpdate(
-    id: string,
+    id: Types.ObjectId,
     update: any,
     options?: ModelFindByIdAndUpdateOptions,
   ): Promise<IUserModel>;
@@ -41,7 +41,7 @@ export default class UserService implements IUserService {
   }
 
   public findByIdAndUpdate(
-    id: string,
+    id: Types.ObjectId,
     update: any,
     options?: ModelFindByIdAndUpdateOptions,
   ): Promise<IUserModel> {
