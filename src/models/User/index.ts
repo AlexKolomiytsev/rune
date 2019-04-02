@@ -1,7 +1,7 @@
 import * as bcrypt from 'bcrypt';
+import * as boom from 'boom';
 import { Typegoose, prop, pre, post, instanceMethod, index } from 'typegoose';
 import { Document } from 'mongoose';
-import * as boom from 'boom';
 import { isEmail } from 'validator';
 
 const SALT_ROUND = 10;

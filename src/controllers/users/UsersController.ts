@@ -3,13 +3,17 @@ import {
   BaseHttpController,
   controller,
   httpGet,
+  httpPatch,
   interfaces,
   queryParam,
+  requestBody,
+  requestParam,
   response,
 } from 'inversify-express-utils';
 import { iocTYPES } from '@app/utils/constants';
 import { inject } from 'inversify';
 import { IUserService } from '@app/services';
+import { User } from '@app/models/User';
 
 @controller('/users', iocTYPES.AuthMiddleware)
 export default class UsersController extends BaseHttpController implements interfaces.Controller {
@@ -44,6 +48,21 @@ export default class UsersController extends BaseHttpController implements inter
 
       const { items, meta } = await this._userService.findAll(query, { skip, limit });
       return res.meta(meta).reply(items);
+    } catch (e) {
+      return res.reply(e);
+    }
+  }
+
+  @httpPatch('/:id')
+  public async update(
+    @requestBody() payload: Partial<User>,
+    @requestParam('id') userId: string,
+    @response() res: Response,
+  ) {
+    try {
+      const result = await this._userService.findByIdAndUpdate(userId, payload);
+
+      return res.reply(result.toJSON());
     } catch (e) {
       return res.reply(e);
     }

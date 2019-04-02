@@ -1,4 +1,5 @@
 import { injectable, inject } from 'inversify';
+import { ModelFindByIdAndUpdateOptions } from 'mongoose';
 import * as boom from 'boom';
 import { isNil } from 'lodash';
 import { IPageable, IUserDAO } from '@app/types';
@@ -14,6 +15,11 @@ export interface IUserService {
   create(user: Partial<User>): Promise<IUserModel>;
   findOne(conditions: any): Promise<IUserModel>;
   findAll(conditions?: any, options?: any): Promise<IPageable<IUserModel[]>>;
+  findByIdAndUpdate(
+    id: string,
+    update: any,
+    options?: ModelFindByIdAndUpdateOptions,
+  ): Promise<IUserModel>;
   isPasswordMatched(user: IUserModel, password: string): Promise<boolean> | null;
   verifyAndSaveUser(verificationToken: string): Promise<IUserModel>;
   verifyUserAccess(accessToken: string): Promise<User>;
@@ -32,6 +38,18 @@ export default class UserService implements IUserService {
 
   public findOne(conditions: object): Promise<IUserModel> {
     return this._userDAO.findOne(conditions);
+  }
+
+  public findByIdAndUpdate(
+    id: string,
+    update: any,
+    options?: ModelFindByIdAndUpdateOptions,
+  ): Promise<IUserModel> {
+    return this._userDAO.findOneAndUpdate({ _id: id }, update, {
+      new: true,
+      select: '-password -verificationToken',
+      ...options,
+    });
   }
 
   public async findAll(conditions: any, options: any = {}): Promise<IPageable<IUserModel[]>> {

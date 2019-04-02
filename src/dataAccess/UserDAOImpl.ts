@@ -2,6 +2,7 @@ import { injectable } from 'inversify';
 import { IUserDAO } from '@app/types';
 import { IUserModel, User } from '@app/models/User';
 import { UserModel } from '@app/models';
+import { ModelFindByIdAndUpdateOptions } from 'mongoose';
 
 @injectable()
 export default class UserDAOImpl implements IUserDAO<User, IUserModel> {
@@ -23,6 +24,14 @@ export default class UserDAOImpl implements IUserDAO<User, IUserModel> {
     projection: any | null = '-password -verificationToken',
   ): Promise<IUserModel[]> {
     return UserModel.find(conditions, projection, options);
+  }
+
+  public findOneAndUpdate(
+    conditions: any,
+    update: any,
+    options?: ModelFindByIdAndUpdateOptions,
+  ): any {
+    return UserModel.findOneAndUpdate(conditions, update, options);
   }
 
   public async count(conditions: any, options: any): Promise<number> {
