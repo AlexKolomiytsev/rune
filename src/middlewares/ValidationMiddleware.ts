@@ -25,17 +25,15 @@ export default class ValidationMiddleware extends BaseMiddleware {
 
       return next();
     } catch (e) {
-      const { details } = e;
-
-      const meta =
-        details &&
-        details.map(({ message, type }: Joi.ValidationErrorItem) => ({
+      const details =
+        e.details &&
+        e.details.map(({ message, type }: Joi.ValidationErrorItem) => ({
           message: message.replace(/['"]/g, ''),
           type,
         }));
 
       return res
-        .meta(meta)
+        .meta({ details })
         .message(e.name)
         .reply(e);
     }
