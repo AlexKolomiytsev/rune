@@ -31,7 +31,7 @@ export default class UsersController extends BaseHttpController implements inter
     }
   }
 
-  @httpGet('/')
+  @httpGet('/', iocTYPES.ValidationMiddleware)
   public async getAll(
     @response() res: Response,
     @queryParam('skip') skip: number,

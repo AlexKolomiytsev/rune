@@ -1,4 +1,5 @@
 import joi from '@app/utils/validators/customJoi';
+import { paginationObject } from '@app/utils/validators/common';
 
 export default {
   '/users/:id': {
@@ -11,5 +12,8 @@ export default {
       lastName: joi.string().alphanum(),
       email: joi.string().email(),
     }),
+  },
+  '/users/': {
+    GET: paginationObject,
   },
 };
