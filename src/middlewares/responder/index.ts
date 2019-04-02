@@ -20,15 +20,15 @@ class Responder {
   }
 
   public static replyWithError(error: any) {
-    const boomifiedError = boom.boomify(error);
+    const boomifiedError = boom.boomify(error, { statusCode: error.isJoi && 400 });
     const { output } = boomifiedError;
     const message = boomifiedError.message || output.payload.message;
-    const messages = message ? [message] : this.messages || [];
+    const messages = this.messages || castArray(message);
 
     return this.status(output.statusCode).json({
       error: output.payload.error,
       data: error.data,
-      meta: this.meta,
+      meta: this.meta || error.details,
       messages,
     });
   }

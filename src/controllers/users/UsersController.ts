@@ -53,7 +53,7 @@ export default class UsersController extends BaseHttpController implements inter
     }
   }
 
-  @httpPatch('/:id')
+  @httpPatch('/:id', iocTYPES.ValidationMiddleware)
   public async update(
     @requestBody() payload: Partial<User>,
     @requestParam('id') userId: string,

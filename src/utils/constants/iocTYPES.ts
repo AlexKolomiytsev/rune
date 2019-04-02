@@ -23,4 +23,5 @@ export default {
 
   // Middlewares
   AuthMiddleware: Symbol('AuthMiddleware'),
+  ValidationMiddleware: Symbol('ValidationMiddleware'),
 };

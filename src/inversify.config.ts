@@ -9,7 +9,7 @@ import QueueService from '@app/services/QueueService';
 import SessionService from '@app/services/SessionService';
 import Logger from '@app/services/Logger';
 import { Mongo, Redis } from '@app/connections';
-import { AuthMiddleware } from '@app/middlewares';
+import { AuthMiddleware, ValidationMiddleware } from '@app/middlewares';
 import EmailNotificationJobProcessor from '@app/workers/processors/EmailNotificationJobProcessor';
 import WorkerImpl from '@app/workers/WorkerImpl';
 import ProcessorInitializers from '@app/workers/ProcessorInitializers';
@@ -49,5 +49,6 @@ container.bind(iocTYPES.EmailNotificationJobProcessor).to(EmailNotificationJobPr
 
 // Middlewares
 container.bind(iocTYPES.AuthMiddleware).to(AuthMiddleware);
+container.bind(iocTYPES.ValidationMiddleware).to(ValidationMiddleware);
 
 export default container;

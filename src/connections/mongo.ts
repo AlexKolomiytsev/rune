@@ -27,6 +27,7 @@ export default class Mongo implements IMongo {
 
   constructor() {
     this.mongoose.set('useCreateIndex', true);
+    this.mongoose.set('useFindAndModify', false);
     this.mongoose.Promise = bluebird;
   }
 
