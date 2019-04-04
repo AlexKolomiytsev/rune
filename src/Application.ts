@@ -3,6 +3,7 @@ import * as morgan from 'morgan';
 import * as cors from 'cors';
 import * as bodyParser from 'body-parser';
 import * as http from 'http';
+import * as helmet from 'helmet';
 import { injectable, inject } from 'inversify';
 import { InversifyExpressServer } from 'inversify-express-utils';
 
@@ -27,6 +28,7 @@ export default class Application implements IApplication {
 
   public configure(server: InversifyExpressServer) {
     server.setConfig(app => {
+      app.use(helmet());
       app.use(responder);
       app.use(bodyParser.urlencoded({ extended: true }));
       app.use(bodyParser.json());
